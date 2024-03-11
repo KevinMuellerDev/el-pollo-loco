@@ -1,11 +1,16 @@
-class Bat extends MovableObject{
+class Bat extends MovableObject {
     width = 70;
     height = 30;
 
-    constructor(){
+    constructor() {
         super().loadImage('../img/background/layers/newbat.png');
 
-        this.x =  Math.random() * 500;
-        this.y =  Math.random() * 150;
+        this.x = Math.random() * 500;
+        this.y = Math.random() * 150;
+        this.animate();
+    }
+
+    animate() {
+        setInterval(() => { this.x -= 0.15; }, 1000 / 60)
     }
 }
