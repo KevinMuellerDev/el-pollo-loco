@@ -4,6 +4,9 @@ body{
     align-items: center;
     flex-direction: column;
     height: 100vh;
+    background: url(./img/background/2_game_background.png);
+    background-position: center;
+    background-size: cover;
 }
 
 canvas{

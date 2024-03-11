@@ -6,21 +6,36 @@ class World {
         new Zombie(),
         new Zombie()
     ];
+    bat = [
+        new Bat(),
+        new Bat(),
+        new Bat()
+    ];
     ctx;
+    canvas;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
+        this.canvas = canvas;
         this.draw();
     }
 
 
 
     draw() {
-        let offset = 0;
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+
         this.enemies.forEach(zombie => {
-            this.ctx.drawImage(zombie.img, zombie.x + offset, zombie.y, zombie.width, zombie.height)
-            offset = offset + 50;
+            this.ctx.drawImage(zombie.img, zombie.x, zombie.y, zombie.width, zombie.height)
         });
+
+        this.bat.forEach(bat => {
+            this.ctx.drawImage(bat.img, bat.x, bat.y, bat.width, bat.height)
+        });
+
         this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height)
+
+        requestAnimationFrame(() => this.draw());
     }
 }
