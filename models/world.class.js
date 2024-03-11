@@ -9,6 +9,9 @@ class World {
     bat = [
         new Bat(),
         new Bat(),
+        new Bat(),
+        new Bat(),
+        new Bat(),
         new Bat()
     ];
     backgroundObject = [
