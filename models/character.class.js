@@ -1,6 +1,21 @@
 class Character extends MovableObject {
     y = 345;
-    IMAGES_IDLE = [
+    IMAGES_WALK = [
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_000.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_001.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_002.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_003.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_004.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_005.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_006.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_007.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_008.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_009.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_010.png',
+        '../img/Wraith_03/Walking/Wraith_03_Moving Forward_011.png'
+    ];
+
+    IMAGES_IDLE=[
         '../img/Wraith_03/Idle/Wraith_03_Idle_000.png',
         '../img/Wraith_03/Idle/Wraith_03_Idle_001.png',
         '../img/Wraith_03/Idle/Wraith_03_Idle_002.png',
@@ -13,22 +28,44 @@ class Character extends MovableObject {
         '../img/Wraith_03/Idle/Wraith_03_Idle_009.png',
         '../img/Wraith_03/Idle/Wraith_03_Idle_010.png',
         '../img/Wraith_03/Idle/Wraith_03_Idle_011.png'
-    ]
-    currentImage = 0;
+    ];
+    world;
+    speed = 3;
 
-    constructor(){
+
+    constructor() {
         super().loadImage('../img/Wraith_03/Idle/Wraith_03_Idle_000.png');
+        this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_IDLE);
         this.animate();
     }
 
-    animate(){
-        setInterval(()=> {
-            let i = this.currentImage % this.IMAGES_IDLE.length
-            let path = this.IMAGES_IDLE[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        },1000/8.5)
+    animate() {
+
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT) {
+                this.x += this.speed;
+            }
+
+            if (this.world.keyboard.LEFT) {
+                this.x -= this.speed;
+            }
+        }, 1000 / 60)
+        
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                //walk animation
+                let i = this.currentImage % this.IMAGES_WALK.length
+                let path = this.IMAGES_WALK[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            } else{
+                let i = this.currentImage % this.IMAGES_IDLE.length
+                let path = this.IMAGES_IDLE[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
+        }, 1000 / 11)
     }
 
     jump() {

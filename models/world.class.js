@@ -23,17 +23,24 @@ class World {
         new BackgroundObject('../img/background/layers/6.png'),
         new BackgroundObject('../img/background/layers/7.png'),
         new BackgroundObject('../img/background/layers/8.png'),
-        new BackgroundObject('../img/background/layers/9.png'),
+        new BackgroundObject('../img/background/layers/9.png')
     ];
     ctx;
     canvas;
+    keyboard;
 
-    constructor(canvas) {
+    
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
     }
 
+    setWorld(){
+        this.character.world = this;
+    }
 
 
     draw() {
