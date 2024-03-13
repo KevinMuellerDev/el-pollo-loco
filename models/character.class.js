@@ -15,7 +15,7 @@ class Character extends MovableObject {
         '../img/Wraith_03/Walking/Wraith_03_Moving Forward_011.png'
     ];
 
-    IMAGES_IDLE=[
+    IMAGES_IDLE = [
         '../img/Wraith_03/Idle/Wraith_03_Idle_000.png',
         '../img/Wraith_03/Idle/Wraith_03_Idle_001.png',
         '../img/Wraith_03/Idle/Wraith_03_Idle_002.png',
@@ -30,7 +30,7 @@ class Character extends MovableObject {
         '../img/Wraith_03/Idle/Wraith_03_Idle_011.png'
     ];
     world;
-    speed = 3;
+    speed = 5;
 
 
     constructor() {
@@ -45,13 +45,16 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.world.keyboard.RIGHT) {
                 this.x += this.speed;
+                this.otherDirection = false;
             }
 
             if (this.world.keyboard.LEFT) {
                 this.x -= this.speed;
+                this.otherDirection = true;
             }
+            this.world.camera_x = -this.x;
         }, 1000 / 60)
-        
+
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 //walk animation
@@ -59,7 +62,7 @@ class Character extends MovableObject {
                 let path = this.IMAGES_WALK[i];
                 this.img = this.imageCache[path];
                 this.currentImage++;
-            } else{
+            } else {
                 let i = this.currentImage % this.IMAGES_IDLE.length
                 let path = this.IMAGES_IDLE[i];
                 this.img = this.imageCache[path];
