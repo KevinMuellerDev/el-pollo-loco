@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard()
-let bgSound = new Audio('../audio/halloween-bg.mp3');
+let bgSound = new Audio('./audio/halloween-bg.mp3');
 
 function init() {
     canvas = document.getElementById('canvas');
