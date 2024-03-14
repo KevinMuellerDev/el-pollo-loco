@@ -2,6 +2,7 @@ class Endboss extends MovableObject{
     height = 250;
     width= 250;
     y = 190;
+    x = 700;
     
     IMAGES_WALK = [
         './img/boss/Walk/Zombie4_Walk_000.png',
@@ -26,7 +27,6 @@ class Endboss extends MovableObject{
 
     constructor(){
         super().loadImage('./img/boss/Walk/Zombie4_Walk_000.png');
-        this.x = 700;
         this.loadImages(this.IMAGES_WALK);
         this.speed = 0.1 + Math.random() * 0.15;
         this.animate();
