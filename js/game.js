@@ -1,11 +1,21 @@
 let canvas;
 let world;
 let keyboard = new Keyboard()
+let bgSound = new Audio('../audio/halloween-bg.mp3');
 
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
+
+window.addEventListener('click', (event) => {
+    if (event) {
+        bgSound.play();
+        bgSound.onended = (() => {
+            bgSound.play();
+        })
+    }
+})
 
 window.addEventListener('keydown', (event) => {
 
