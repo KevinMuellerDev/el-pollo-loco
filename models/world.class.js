@@ -6,7 +6,7 @@ class World {
     canvas;
     keyboard;
     camera_x = 0;
-    
+
 
 
     constructor(canvas, keyboard) {
@@ -26,7 +26,6 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Kamera wird mit verschoben und hinterher resettet damit sie nicht weiterläuft
-    
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObject);
@@ -36,6 +35,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
 
+        // Erneuert permanent den Canvas über die Grafikkarte
         requestAnimationFrame(() => this.draw());
     }
 
