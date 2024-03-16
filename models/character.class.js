@@ -3,6 +3,7 @@ class Character extends MovableObject {
     offsetY = 50;
     offsetX = 50;
     lifePoints = 100;
+    idleBlinkCounter = 0;
 
     IMAGES_WALK = [
         './img/Wraith_03/Walking/Wraith_03_Moving Forward_000.png',
@@ -33,6 +34,21 @@ class Character extends MovableObject {
         './img/Wraith_03/Idle/Wraith_03_Idle_010.png',
         './img/Wraith_03/Idle/Wraith_03_Idle_011.png'
     ];
+
+    IMAGES_IDLE_BLINK = [
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_000.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_001.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_002.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_003.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_004.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_005.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_006.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_007.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_008.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_009.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_010.png',
+        './img/Wraith_03/Idle_Blink/Wraith_03_Idle Blinking_011.png'
+    ]
 
     IMAGES_JUMPING = [
         './img/Wraith_03/Taunt/Wraith_03_Taunt_000.png',
@@ -96,6 +112,7 @@ class Character extends MovableObject {
         super().loadImage('./img/Wraith_03/Idle/Wraith_03_Idle_000.png');
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_IDLE_BLINK);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DYING);
         this.loadImages(this.IMAGES_HURT);
@@ -133,12 +150,20 @@ class Character extends MovableObject {
 
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    this.idleBlinkCounter = 0;
                     this.playAnimation(this.IMAGES_WALK)
+
                 } else if (this.isAboveGround()) {
+                    this.idleBlinkCounter = 0;
                     this.playAnimation(this.IMAGES_JUMPING);
 
                 } else {
-                    this.playAnimation(this.IMAGES_IDLE)
+                    if (this.idleBlinkCounter <200) {
+                        this.playAnimation(this.IMAGES_IDLE);
+                        this.idleBlinkCounter++;
+                    } else{
+                        this.playAnimation(this.IMAGES_IDLE_BLINK)
+                    }
                 }
             }
         }, 1000 / 11)

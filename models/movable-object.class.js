@@ -88,11 +88,11 @@ class MovableObject {
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000 // diff in secs
+        timepassed = timepassed / 1000; // diff in secs
         return timepassed < 1;
     }
 
-    
+
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
