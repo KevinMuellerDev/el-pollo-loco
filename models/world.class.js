@@ -18,15 +18,18 @@ class World {
         this.checkCollision();
     }
 
+
     setWorld() {
         this.character.world = this;
     }
+
 
     checkCollision() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.lifePoints -= 5;
+                    this.character.isHit();
                     this.character.isDead();
                     console.log(this.character.lifePoints);
                 };
@@ -79,6 +82,7 @@ class World {
         movableObject.x = movableObject.x * -1;
     }
 
+    
     reverseFlipImage(movableObject) {
         movableObject.x = movableObject.x * -1;
         this.ctx.restore();

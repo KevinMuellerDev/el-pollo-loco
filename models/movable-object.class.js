@@ -13,6 +13,7 @@ class MovableObject {
     speedY = 0;
     acceleration = 2;
     lifePoints = 100;
+    lastHit = 0;
 
 
     applyGravity() {
@@ -70,11 +71,28 @@ class MovableObject {
     }
 
 
-    isDead(){
-        return this.lifePoints <= 0    
+    isDead() {
+        return this.lifePoints == 0
     }
 
 
+    isHit() {
+        this.lifePoints -= 5;
+        if (this.lifePoints <= 0) {
+            this.lifePoints = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000 // diff in secs
+        return timepassed < 1;
+    }
+
+    
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;

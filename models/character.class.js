@@ -2,7 +2,7 @@ class Character extends MovableObject {
     y = 345;
     offsetY = 50;
     offsetX = 50;
-    lifePoints = 100; 
+    lifePoints = 100;
 
     IMAGES_WALK = [
         './img/Wraith_03/Walking/Wraith_03_Moving Forward_000.png',
@@ -73,6 +73,21 @@ class Character extends MovableObject {
         './img/Wraith_03/Dying/Wraith_03_Dying_014.png'
     ];
 
+    IMAGES_HURT = [
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_000.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_001.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_002.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_003.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_004.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_005.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_006.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_007.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_008.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_009.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_010.png',
+        './img/Wraith_03/Hurt/Wraith_03_Hurt_011.png',
+    ];
+
     world;
     speed = 5;
     walking_sound = new Audio('./audio/running.mp3');
@@ -83,6 +98,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DYING);
+        this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
     }
@@ -109,14 +125,21 @@ class Character extends MovableObject {
 
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALK)
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.isDead()) {
+            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DYING)
+
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT)
+
             } else {
-                this.playAnimation(this.IMAGES_IDLE)
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    this.playAnimation(this.IMAGES_WALK)
+                } else if (this.isAboveGround()) {
+                    this.playAnimation(this.IMAGES_JUMPING);
+
+                } else {
+                    this.playAnimation(this.IMAGES_IDLE)
+                }
             }
         }, 1000 / 11)
     }
