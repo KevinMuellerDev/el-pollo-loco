@@ -1,5 +1,8 @@
 class Character extends MovableObject {
     y = 345;
+    offsetY = 50;
+    offsetX = 50;
+    lifePoints = 100; 
 
     IMAGES_WALK = [
         './img/Wraith_03/Walking/Wraith_03_Moving Forward_000.png',
@@ -50,7 +53,25 @@ class Character extends MovableObject {
         './img/Wraith_03/Taunt/Wraith_03_Taunt_015.png',
         './img/Wraith_03/Taunt/Wraith_03_Taunt_016.png',
         './img/Wraith_03/Taunt/Wraith_03_Taunt_017.png'
-    ]
+    ];
+
+    IMAGES_DYING = [
+        './img/Wraith_03/Dying/Wraith_03_Dying_000.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_001.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_002.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_003.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_004.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_005.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_006.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_007.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_008.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_009.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_010.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_011.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_012.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_013.png',
+        './img/Wraith_03/Dying/Wraith_03_Dying_014.png'
+    ];
 
     world;
     speed = 5;
@@ -61,6 +82,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_DYING);
         this.applyGravity();
         this.animate();
     }
@@ -70,38 +92,36 @@ class Character extends MovableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
+                this.moveRight();
                 this.walking_sound.play();
             }
 
             if (this.world.keyboard.LEFT && this.x > 100) {
-                this.x -= this.speed;
-                this.otherDirection = true;
+                this.moveLeft(true);
                 this.walking_sound.play();
             }
             this.world.camera_x = -this.x + 100;
 
-            if (this.world.keyboard.UP && this.y >= 340) {
-                this.speedY = 25
-                console.log(this.y);
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.jump();
             }
         }, 1000 / 60)
 
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                //walk animation
                 this.playAnimation(this.IMAGES_WALK)
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DYING)
             } else {
                 this.playAnimation(this.IMAGES_IDLE)
             }
         }, 1000 / 11)
     }
 
-    jump() {
 
-    }
+
+
 }

@@ -1,9 +1,9 @@
-class Endboss extends MovableObject{
+class Endboss extends MovableObject {
     height = 250;
-    width= 250;
+    width = 250;
     y = 190;
     x = 700;
-    
+
     IMAGES_WALK = [
         './img/boss/Walk/Zombie4_Walk_000.png',
         './img/boss/Walk/Zombie4_Walk_001.png',
@@ -25,7 +25,7 @@ class Endboss extends MovableObject{
     ]
 
 
-    constructor(){
+    constructor() {
         super().loadImage('./img/boss/Walk/Zombie4_Walk_000.png');
         this.loadImages(this.IMAGES_WALK);
         this.speed = 0.1 + Math.random() * 0.15;
@@ -33,11 +33,9 @@ class Endboss extends MovableObject{
     }
 
 
-    animate(){
-        this.moveLeft();
-        setInterval(()=> {
-            this.playAnimation(this.IMAGES_WALK)
-        },1000/11)
+    animate() {
+        setInterval(() => { this.moveLeft(); }, 1000 / 60)
+        setInterval(() => { this.playAnimation(this.IMAGES_WALK) }, 1000 / 11)
     }
 
 

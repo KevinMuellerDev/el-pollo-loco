@@ -21,7 +21,7 @@ window.addEventListener('keydown', (event) => {
 
     if (event.key == 'ArrowLeft') {
         keyboard.LEFT = true;
-        console.log(keyboard.LEFT);
+
     }
 
     if (event.key == 'ArrowRight') {
@@ -45,7 +45,6 @@ window.addEventListener('keyup', (event) => {
 
     if (event.key == 'ArrowLeft') {
         keyboard.LEFT = false;
-        console.log(keyboard.LEFT);
     }
 
     if (event.key == 'ArrowRight') {

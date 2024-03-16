@@ -1,6 +1,8 @@
 class MovableObject {
     x = 120;
     y = 360;
+    offsetY = 0;
+    offsetX = 0;
     img;
     height = 120;
     width = 150;
@@ -10,6 +12,7 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
+    lifePoints = 100;
 
 
     applyGravity() {
@@ -42,15 +45,52 @@ class MovableObject {
     }
 
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+    }
+
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Zombie || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+
+    isColliding(obj) {
+        return (this.x + this.width - this.offsetX) >= obj.x && this.x <= (obj.x + obj.width - this.offsetX) &&
+            (this.y + this.offsetY + this.height) >= obj.y &&
+            (this.y + this.offsetY) <= (obj.y + obj.height) /* &&
+            obj.onCollisionCourse; */ // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+
+    }
+
+
+    isDead(){
+        return this.lifePoints <= 0    
+    }
+
+
     moveRight() {
-        console.log('Moving Right')
+        this.x += this.speed;
+        this.otherDirection = false;
     }
 
 
-    moveLeft() {
-        setInterval(() => { this.x -= this.speed; }, 1000 / 60)
+    moveLeft(character) {
+        this.x -= this.speed;
+        if (character === true)
+            this.otherDirection = true;
     }
 
+
+    jump() {
+        this.speedY = 25
+    }
 
     playAnimation(images) {
         let i = this.currentImage % images.length
@@ -58,4 +98,6 @@ class MovableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+
+
 }

@@ -1,7 +1,7 @@
-class Zombie extends MovableObject{
+class Zombie extends MovableObject {
     height = 80;
-    width= 80;
-    
+    width = 80;
+
     IMAGES_WALK = [
         './img/enemy/Walk/Zombie01_Walk_000.png',
         './img/enemy/Walk/Zombie01_Walk_001.png',
@@ -22,7 +22,7 @@ class Zombie extends MovableObject{
     ]
 
 
-    constructor(){
+    constructor() {
         super().loadImage('./img/enemy/Walk/Zombie01_Walk_000.png');
         this.x = 250 + Math.random() * 400;
         this.loadImages(this.IMAGES_WALK);
@@ -31,11 +31,10 @@ class Zombie extends MovableObject{
     }
 
 
-    animate(){
-        this.moveLeft();
-        setInterval(()=> {
-            this.playAnimation(this.IMAGES_WALK)
-        },1000/11)
+    animate() {
+
+        setInterval(() => { this.moveLeft(); }, 1000 / 60)
+        setInterval(() => { this.playAnimation(this.IMAGES_WALK); }, 1000 / 11)
     }
 
 

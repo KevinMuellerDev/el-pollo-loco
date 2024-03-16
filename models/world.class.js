@@ -15,10 +15,23 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollision();
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+    checkCollision() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.lifePoints -= 5;
+                    this.character.isDead();
+                    console.log(this.character.lifePoints);
+                };
+            });
+        }, 200);
     }
 
 
@@ -48,18 +61,26 @@ class World {
 
 
     addToMap(movableObject) {
-        if (movableObject.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(movableObject.width, 0);
-            this.ctx.scale(-1, 1);
-            movableObject.x = movableObject.x * -1;
-        }
+        if (movableObject.otherDirection)
+            this.flipImage(movableObject);
 
-        this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height)
+        movableObject.drawFrame(this.ctx);
+        movableObject.draw(this.ctx);
 
-        if (movableObject.otherDirection) {
-            movableObject.x = movableObject.x * -1;
-            this.ctx.restore();
-        }
+        if (movableObject.otherDirection)
+            this.reverseFlipImage(movableObject);
+    }
+
+
+    flipImage(movableObject) {
+        this.ctx.save();
+        this.ctx.translate(movableObject.width, 0);
+        this.ctx.scale(-1, 1);
+        movableObject.x = movableObject.x * -1;
+    }
+
+    reverseFlipImage(movableObject) {
+        movableObject.x = movableObject.x * -1;
+        this.ctx.restore();
     }
 }

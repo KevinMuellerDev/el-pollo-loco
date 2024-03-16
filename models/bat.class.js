@@ -11,7 +11,7 @@ class Bat extends MovableObject {
     }
 
     animate() {
-        this.moveLeft();
+        setInterval(() => { this.moveLeft(); }, 1000 / 60)
     }
 
 }
