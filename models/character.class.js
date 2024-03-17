@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 345;
-    offsetY = 40; 
+    offsetY = 30; 
     offsetX = 50;
     lifePoints = 100;
     manaPoints = 100;
@@ -160,17 +160,20 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_JUMPING);
 
                 } else {
-                    if (this.idleBlinkCounter <200) {
-                        this.playAnimation(this.IMAGES_IDLE);
-                        this.idleBlinkCounter++;
-                    } else{
-                        this.playAnimation(this.IMAGES_IDLE_BLINK)
-                    }
+                    this.characterIdle();
                 }
             }
         }, 1000 / 11)
     }
 
+    characterIdle(){
+        if (this.idleBlinkCounter <200) {
+            this.playAnimation(this.IMAGES_IDLE);
+            this.idleBlinkCounter++;
+        } else{
+            this.playAnimation(this.IMAGES_IDLE_BLINK)
+        }
+    }
 
 
 
