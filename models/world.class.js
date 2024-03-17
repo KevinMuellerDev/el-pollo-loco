@@ -40,7 +40,7 @@ class World {
 
     checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isAboveGround()) { 
+            if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.dead) { 
                 this.character.isHit();
                 this.character.isDead();
                 this.statusBar.setPercentage(this.character.lifePoints);
@@ -53,9 +53,10 @@ class World {
             if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling()) {
                 let index = this.level.enemies.indexOf(enemy);
                 enemy.lifePoints = 0;
+                enemy.dead = true;
                 setTimeout(() => {
                     this.level.enemies.splice(index,1); 
-                }, 700);
+                }, 1000);
              };
         });
     }
