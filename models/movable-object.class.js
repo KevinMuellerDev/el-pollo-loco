@@ -1,4 +1,4 @@
-class MovableObject extends DrawableObject{
+class MovableObject extends DrawableObject {
     offsetY = 0;
     offsetX = 0;
     speed = 0.15;
@@ -20,20 +20,12 @@ class MovableObject extends DrawableObject{
 
 
     isAboveGround() {
-        return this.y < 340;
-    }
-
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Zombie || this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else {
+            return this.y < 340;
         }
     }
-
 
     isColliding(obj) {
         return (this.x + this.width - this.offsetX) >= obj.x && this.x <= (obj.x + obj.width - this.offsetX) &&
@@ -83,7 +75,7 @@ class MovableObject extends DrawableObject{
         this.speedY = 25
     }
 
-    
+
     playAnimation(images) {
         let i = this.currentImage % images.length
         let path = images[i];

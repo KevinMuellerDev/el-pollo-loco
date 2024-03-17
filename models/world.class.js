@@ -2,10 +2,12 @@ class World {
 
     character = new Character();
     level = level1;
+    throwableObjects = [];
     ctx;
     canvas;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar();
 
 
 
@@ -15,7 +17,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollision();
+        this.run();
     }
 
 
@@ -24,17 +26,31 @@ class World {
     }
 
 
-    checkCollision() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.lifePoints -= 5;
-                    this.character.isHit();
-                    this.character.isDead();
-                    console.log(this.character.lifePoints);
-                };
-            });
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 200);
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.lifePoints -= 5;
+                this.character.isHit();
+                this.character.isDead();
+                this.statusBar.setPercentage(this.character.lifePoints);
+                console.log(this.character.lifePoints);
+            };
+        });
+    }
+
+
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 50 , this.character.y );
+            this.throwableObjects.push(bottle)
+        }
     }
 
 
@@ -43,13 +59,15 @@ class World {
 
         // Kamera wird mit verschoben und hinterher resettet damit sie nicht weiterläuft
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObject);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bat);
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
-
         this.ctx.translate(-this.camera_x, 0);
+
+        // ------ space for fixed objects ------
+        this.addToMap(this.statusBar);
 
         // Erneuert permanent den Canvas über die Grafikkarte
         requestAnimationFrame(() => this.draw());
@@ -82,7 +100,7 @@ class World {
         movableObject.x = movableObject.x * -1;
     }
 
-    
+
     reverseFlipImage(movableObject) {
         movableObject.x = movableObject.x * -1;
         this.ctx.restore();
