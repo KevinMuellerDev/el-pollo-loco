@@ -29,12 +29,13 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisionsEnemy();
+            this.checkCollisionsMana();
             this.checkThrowObjects();
         }, 125);
     }
 
-    checkCollisions() {
+    checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
 
@@ -42,6 +43,17 @@ class World {
                 this.character.isDead();
                 this.statusBar.setPercentage(this.character.lifePoints);
                 console.log(this.character.lifePoints);
+            };
+        });
+    }
+
+    checkCollisionsMana(){
+        this.level.mana.forEach((mana) => {
+            if (this.character.isColliding(mana) && this.character.manaPoints != 100) {
+                this.character.manaPoints += this.character.manaCost;
+                this.spellBar.setPercentage(this.character.manaPoints)
+                let index = this.level.mana.indexOf(mana);
+                this.level.mana.splice(index, 1)
             };
         });
     }
@@ -67,6 +79,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObject);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bat);
+        this.addObjectsToMap(this.level.mana);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);

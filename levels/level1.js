@@ -40,5 +40,15 @@ const level1 = new Level(
         new BackgroundObject('./img/background/layers/7.png', 1440),
         new BackgroundObject('./img/background/layers/8.png', 1440),
         new BackgroundObject('./img/background/layers/9.png', 1440),
+    ],
+    [
+        new Mana(),
+        new Mana(),
+        new Mana(),
+        new Mana(),
+        new Mana(),
+        new Mana(),
+        new Mana(),
+        new Mana(),
     ]
 );
