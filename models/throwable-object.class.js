@@ -11,6 +11,7 @@ class ThrowableObject extends MovableObject {
 
     constructor(x, y) {
         super().loadImage('./img/spell/1.png');;
+        this.loadImages(this.IMAGES_SPELL);
         this.x = x;
         this.y = y;
         this.height= 50;
@@ -18,26 +19,12 @@ class ThrowableObject extends MovableObject {
         this.throw()
     }
 
-    animate() {
-
-        setInterval(() => {
-            if (this.world.keyboard.D) {
-                
-            }
-        }, 1000 / 60);
-
-        setInterval(() => {
-            if (this.world.keyboard.D) {
-                this.throw();
-            }
-        }, 1000 / 60);
-    }
-
     throw() {
-        this.speedY = 15;
+        this.speedY = 25;
         this.applyGravity();
         setInterval(() => {
             this.x += 10;
+            this.playAnimation(this.IMAGES_SPELL)
         }, 25);
     }
 }

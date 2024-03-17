@@ -42,7 +42,7 @@ class MovableObject extends DrawableObject {
 
 
     isHit() {
-        this.lifePoints -= 5;
+        this.lifePoints -= 1;
         if (this.lifePoints <= 0) {
             this.lifePoints = 0;
         } else {
@@ -72,7 +72,7 @@ class MovableObject extends DrawableObject {
 
 
     jump() {
-        this.speedY = 25
+        this.speedY = 30
     }
 
 

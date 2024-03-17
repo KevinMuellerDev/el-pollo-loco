@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
     height = 250;
     width = 250;
     y = 190;
-    x = 700;
+    x = 1800;
 
     IMAGES_WALK = [
         './img/boss/Walk/Zombie4_Walk_000.png',

@@ -8,6 +8,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    spellBar = new SpellBar();
 
 
 
@@ -30,13 +31,13 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200);
+        }, 125);
     }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.lifePoints -= 5;
+
                 this.character.isHit();
                 this.character.isDead();
                 this.statusBar.setPercentage(this.character.lifePoints);
@@ -48,8 +49,12 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 50 , this.character.y );
-            this.throwableObjects.push(bottle)
+            let bottle = new ThrowableObject(this.character.x + 50, this.character.y);
+            if (this.character.manaPoints > 0) {
+                this.throwableObjects.push(bottle)
+                this.character.manaPoints -= this.character.manaCost;
+                this.spellBar.setPercentage(this.character.manaPoints)
+            }
         }
     }
 
@@ -68,6 +73,7 @@ class World {
 
         // ------ space for fixed objects ------
         this.addToMap(this.statusBar);
+        this.addToMap(this.spellBar);
 
         // Erneuert permanent den Canvas über die Grafikkarte
         requestAnimationFrame(() => this.draw());

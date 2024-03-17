@@ -3,6 +3,8 @@ class Character extends MovableObject {
     offsetY = 50;
     offsetX = 50;
     lifePoints = 100;
+    manaPoints = 100;
+    manaCost = 12.5;
     idleBlinkCounter = 0;
 
     IMAGES_WALK = [
