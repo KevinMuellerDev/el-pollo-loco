@@ -52,7 +52,10 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling()) {
                 let index = this.level.enemies.indexOf(enemy);
-                this.level.enemies.splice(index,1);
+                enemy.lifePoints = 0;
+                setTimeout(() => {
+                    this.level.enemies.splice(index,1); 
+                }, 700);
              };
         });
     }
@@ -114,7 +117,7 @@ class World {
         if (movableObject.otherDirection)
             this.flipImage(movableObject);
 
-        movableObject.drawFrame(this.ctx);
+        /* movableObject.drawFrame(this.ctx); */
         movableObject.draw(this.ctx);
 
         if (movableObject.otherDirection)

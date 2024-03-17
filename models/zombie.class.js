@@ -1,6 +1,7 @@
 class Zombie extends MovableObject {
     height = 80;
-    width = 80;
+    width = 70;
+    lifePoints = 1;
 
     IMAGES_WALK = [
         './img/enemy/Walk/Zombie01_Walk_000.png',
@@ -19,13 +20,37 @@ class Zombie extends MovableObject {
         './img/enemy/Walk/Zombie01_Walk_013.png',
         './img/enemy/Walk/Zombie01_Walk_014.png',
         './img/enemy/Walk/Zombie01_Walk_015.png'
-    ]
+    ];
+
+    IMAGES_DYING = [
+        './img/enemy/Death/Zombie01_Death_000.png',
+        './img/enemy/Death/Zombie01_Death_001.png',
+        './img/enemy/Death/Zombie01_Death_002.png',
+        './img/enemy/Death/Zombie01_Death_003.png',
+        './img/enemy/Death/Zombie01_Death_004.png',
+        './img/enemy/Death/Zombie01_Death_005.png',
+        './img/enemy/Death/Zombie01_Death_006.png',
+        './img/enemy/Death/Zombie01_Death_007.png',
+        './img/enemy/Death/Zombie01_Death_008.png',
+        './img/enemy/Death/Zombie01_Death_009.png',
+        './img/enemy/Death/Zombie01_Death_010.png',
+        './img/enemy/Death/Zombie01_Death_011.png',
+        './img/enemy/Death/Zombie01_Death_012.png',
+        './img/enemy/Death/Zombie01_Death_013.png',
+        './img/enemy/Death/Zombie01_Death_014.png',
+        './img/enemy/Death/Zombie01_Death_015.png',
+        './img/enemy/Death/Zombie01_Death_016.png',
+        './img/enemy/Death/Zombie01_Death_017.png',
+        './img/enemy/Death/Zombie01_Death_018.png',
+        './img/enemy/Death/Zombie01_Death_019.png'
+    ];
 
 
     constructor() {
         super().loadImage('./img/enemy/Walk/Zombie01_Walk_000.png');
         this.x = 250 + Math.random() * 1400;
         this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_DYING);
         this.speed = 0.15 + Math.random() * 0.15;
         this.animate();
     }
@@ -33,8 +58,17 @@ class Zombie extends MovableObject {
 
     animate() {
 
-        setInterval(() => { this.moveLeft(); }, 1000 / 60)
-        setInterval(() => { this.playAnimation(this.IMAGES_WALK); }, 1000 / 11)
+        //setInterval(() => { this.moveLeft(); }, 1000 / 60)
+
+        setInterval(() => { 
+            if (this.lifePoints == 0) {
+                this.height = 80;
+                this.width  = 120;
+                this.playAnimation(this.IMAGES_DYING); 
+            }else{
+                this.playAnimation(this.IMAGES_WALK); 
+            }
+        }, 1000 / 11)
     }
 
 
