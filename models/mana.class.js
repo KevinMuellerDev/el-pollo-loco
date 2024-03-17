@@ -6,5 +6,6 @@ class Mana extends MovableObject{
     constructor(){
         super().loadImage('./img/spellpool/mana/mana.png');
         this.x = 250 + Math.random() * 1400;
+        this.y = 380;
     }
 }

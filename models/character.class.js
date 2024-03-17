@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 345;
-    offsetY = 50;
+    offsetY = 30; 
     offsetX = 50;
     lifePoints = 100;
     manaPoints = 100;

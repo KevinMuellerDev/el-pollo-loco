@@ -30,26 +30,36 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsEnemy();
+            this.checkHitEnemy();
             this.checkCollisionsMana();
             this.checkThrowObjects();
         }, 125);
     }
 
+
+
     checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-
+            if (this.character.isColliding(enemy) && !this.character.isAboveGround()) { 
                 this.character.isHit();
                 this.character.isDead();
                 this.statusBar.setPercentage(this.character.lifePoints);
-                console.log(this.character.lifePoints);
             };
+        });
+    }
+
+    checkHitEnemy(){
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling()) {
+                let index = this.level.enemies.indexOf(enemy);
+                this.level.enemies.splice(index,1);
+             };
         });
     }
 
     checkCollisionsMana(){
         this.level.mana.forEach((mana) => {
-            if (this.character.isColliding(mana) && this.character.manaPoints != 100) {
+            if (this.character.isColliding(mana) && this.character.manaPoints != 100)  {
                 this.character.manaPoints += this.character.manaCost;
                 this.spellBar.setPercentage(this.character.manaPoints)
                 let index = this.level.mana.indexOf(mana);
