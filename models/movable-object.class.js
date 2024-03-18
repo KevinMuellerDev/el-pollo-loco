@@ -58,7 +58,7 @@ class MovableObject extends DrawableObject {
         } else {
             this.lifePoints -= 1;
         }
-        console.log(this.lifePoints);
+        console.log(this, this.lifePoints);
         if (this.lifePoints <= 0) {
             this.lifePoints = 0;
         } else {

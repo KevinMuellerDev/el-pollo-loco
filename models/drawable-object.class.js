@@ -28,12 +28,14 @@ class DrawableObject{
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Zombie || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Zombie || this instanceof Endboss || this instanceof ThrowableObject) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.rect(this.x, this.y, this.width - this.offsetX, this.height - this.offsetY);
             ctx.stroke();
+
         }
     }
 }

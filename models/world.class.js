@@ -24,6 +24,9 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach(zombie => {
+            zombie.world = this;
+        });
     }
 
 
@@ -54,31 +57,25 @@ class World {
     }
 
     checkHitEnemy() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy,index) => {
             if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling()) {
-                let index = this.level.enemies.indexOf(enemy);
+                enemy.index = index;
                 enemy.lifePoints = 0;
                 enemy.dead = true;
-                setTimeout(() => {
-                    this.level.enemies.splice(index, 1);
-                }, 1000);
             };
         });
     }
 
     checkShotEnemy() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy, index) => {
             this.throwableObjects.forEach((spell) => {
                 if (spell.isColliding(enemy)) {
-                    let index = this.level.enemies.indexOf(enemy)
+                    enemy.index = index;
                     if (!enemy.isHurt()) {
                         enemy.isHit();
                     }
-                    if (enemy.lifePoints <= 0) {
+                    if (enemy.isDead()) {
                         enemy.dead = true;
-                        setTimeout(() => {
-                            this.level.enemies.splice(index, 1);
-                        }, 1000);
                     }
                 };
             });
@@ -143,7 +140,7 @@ class World {
         if (movableObject.otherDirection)
             this.flipImage(movableObject);
 
-        /* movableObject.drawFrame(this.ctx); */
+        movableObject.drawFrame(this.ctx);
         movableObject.draw(this.ctx);
 
         if (movableObject.otherDirection)

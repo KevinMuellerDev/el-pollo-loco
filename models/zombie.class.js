@@ -3,7 +3,8 @@ class Zombie extends MovableObject {
     width = 70;
     lifePoints = 1;
     dead = false;
-    deadCounter = 0;
+    index;
+    dyingCounter=0;
 
     IMAGES_WALK = [
         './img/enemy/Walk/Zombie01_Walk_000.png',
@@ -63,11 +64,14 @@ class Zombie extends MovableObject {
         //setInterval(() => { this.moveLeft(); }, 1000 / 60)
 
         setInterval(() => { 
-            if (this.lifePoints <= 0 && this.deadCounter != 19) {
+            if (this.isDead() && this.dyingCounter != 19 ) {
                 this.playAnimation(this.IMAGES_DYING); 
                 this.height = 80;
                 this.width  = 120;
-                this.deadCounter++
+                this.dyingCounter++
+                if (this.dyingCounter == 19) {
+                    this.world.level.enemies.splice(this.index, 1);
+                }
             }else if(this.dead != true){
                 this.playAnimation(this.IMAGES_WALK); 
             }
