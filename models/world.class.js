@@ -57,7 +57,7 @@ class World {
     }
 
     checkHitEnemy() {
-        this.level.enemies.forEach((enemy,index) => {
+        this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling()) {
                 enemy.index = index;
                 enemy.lifePoints = 0;
@@ -71,12 +71,10 @@ class World {
             this.throwableObjects.forEach((spell) => {
                 if (spell.isColliding(enemy)) {
                     enemy.index = index;
-                    if (!enemy.isHurt()) {
+                    if (!enemy.isHurt())
                         enemy.isHit();
-                    }
-                    if (enemy.isDead()) {
+                    if (enemy.isDead())
                         enemy.dead = true;
-                    }
                 };
             });
         });

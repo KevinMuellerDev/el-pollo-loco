@@ -69,9 +69,8 @@ class Zombie extends MovableObject {
                 this.height = 80;
                 this.width  = 120;
                 this.dyingCounter++
-                if (this.dyingCounter == 19) {
+                if (this.dyingCounter == 18) 
                     this.world.level.enemies.splice(this.index, 1);
-                }
             }else if(this.dead != true){
                 this.playAnimation(this.IMAGES_WALK); 
             }
