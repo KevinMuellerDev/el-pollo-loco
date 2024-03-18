@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2;
     lifePoints = 100;
     lastHit = 0;
+    characterHit = false;
 
 
     applyGravity() {
@@ -28,20 +29,20 @@ class MovableObject extends DrawableObject {
     }
 
 
-    isFalling(){
+    isFalling() {
         return this.speedY < 0
     }
 
-    
+
     isColliding(obj) {
         return (this.x + this.width - this.offsetX) >= obj.x && this.x <= (obj.x + obj.width - this.offsetX) &&
             (this.y + this.offsetY + this.height) >= obj.y &&
             (this.y + this.offsetY) <= (obj.y + obj.height) /* &&
             obj.onCollisionCourse; */ // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
-    } 
+    }
 
-    isHitEnemy(obj){
+    isHitEnemy(obj) {
         return (this.y + this.height - this.offsetY) <= obj.y
     }
 
@@ -52,7 +53,12 @@ class MovableObject extends DrawableObject {
 
 
     isHit() {
-        this.lifePoints -= 1;
+        if (this instanceof Endboss) {
+            this.lifePoints -= 5;
+        } else {
+            this.lifePoints -= 1;
+        }
+        console.log(this.lifePoints);
         if (this.lifePoints <= 0) {
             this.lifePoints = 0;
         } else {
@@ -66,6 +72,7 @@ class MovableObject extends DrawableObject {
         timepassed = timepassed / 1000; // diff in secs
         return timepassed < 1;
     }
+
 
 
     moveRight() {

@@ -31,6 +31,7 @@ class World {
         setInterval(() => {
             this.checkCollisionsEnemy();
             this.checkHitEnemy();
+            this.checkShotEnemy();
             this.checkCollisionsMana();
             this.checkThrowObjects();
         }, 125);
@@ -40,30 +41,54 @@ class World {
 
     checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.dead) { 
-                this.character.isHit();
+            if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.dead) {
+                if (!this.character.isHurt()) {
+                    this.character.isHit();
+                    this.character.isHurt();
+                }
                 this.character.isDead();
                 this.statusBar.setPercentage(this.character.lifePoints);
+
             };
         });
     }
 
-    checkHitEnemy(){
+    checkHitEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling()) {
                 let index = this.level.enemies.indexOf(enemy);
                 enemy.lifePoints = 0;
                 enemy.dead = true;
                 setTimeout(() => {
-                    this.level.enemies.splice(index,1); 
+                    this.level.enemies.splice(index, 1);
                 }, 1000);
-             };
+            };
         });
     }
 
-    checkCollisionsMana(){
+    checkShotEnemy() {
+        this.level.enemies.forEach((enemy) => {
+            this.throwableObjects.forEach((spell) => {
+                if (spell.isColliding(enemy)) {
+                    let index = this.level.enemies.indexOf(enemy)
+                    if (!enemy.isHurt()) {
+                        enemy.isHit();
+                    }
+                    if (enemy.lifePoints <= 0) {
+                        enemy.dead = true;
+                        setTimeout(() => {
+                            this.level.enemies.splice(index, 1);
+                        }, 1000);
+                    }
+                };
+            });
+        });
+    }
+
+
+    checkCollisionsMana() {
         this.level.mana.forEach((mana) => {
-            if (this.character.isColliding(mana) && this.character.manaPoints != 100)  {
+            if (this.character.isColliding(mana) && this.character.manaPoints != 100) {
                 this.character.manaPoints += this.character.manaCost;
                 this.spellBar.setPercentage(this.character.manaPoints)
                 let index = this.level.mana.indexOf(mana);

@@ -63,7 +63,7 @@ class Zombie extends MovableObject {
         //setInterval(() => { this.moveLeft(); }, 1000 / 60)
 
         setInterval(() => { 
-            if (this.lifePoints == 0 && this.deadCounter != 19) {
+            if (this.lifePoints <= 0 && this.deadCounter != 19) {
                 this.playAnimation(this.IMAGES_DYING); 
                 this.height = 80;
                 this.width  = 120;
