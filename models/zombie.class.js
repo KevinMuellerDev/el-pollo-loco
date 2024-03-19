@@ -45,6 +45,8 @@ class Zombie extends MovableObject {
         './img/enemy/Death/Zombie01_Death_019.png'
     ];
 
+    dyingSound = new Audio('./audio/zombie-normal.mp3');
+
 
     constructor() {
         super().loadImage('./img/enemy/Walk/Zombie01_Walk_000.png');
@@ -65,6 +67,7 @@ class Zombie extends MovableObject {
                 this.playAnimation(this.IMAGES_DYING); 
                 this.height = 80;
                 this.width  = 120;
+                this.dyingSound.play();
                 this.dyingCounter++
                 if (this.dyingCounter == 11)  
                     this.world.level.enemies.splice(this.index, 1);

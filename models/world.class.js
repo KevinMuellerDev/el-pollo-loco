@@ -10,6 +10,7 @@ class World {
     statusBar = new StatusBar();
     spellBar = new SpellBar();
     coinBar = new CoinBar();
+    enemyHit = false;
 
 
 
@@ -73,12 +74,14 @@ class World {
     checkShotEnemy() {
         this.level.enemies.forEach((enemy, index) => {
             this.throwableObjects.forEach((spell) => {
-                if (spell.isColliding(enemy)) {
+                if (spell.isColliding(enemy) && !this.enemyHit) {
                     enemy.index = index;
                     if (!enemy.isHurt())
                         enemy.isHit();
                     if (enemy.isDead())
                         enemy.dead = true;
+                        this.enemyHit = true;
+                        setTimeout(() => {this.enemyHit=false}, 1000);
                 };
             });
         });
@@ -89,6 +92,7 @@ class World {
         this.level.mana.forEach((mana, index) => {
             if (this.character.isColliding(mana) && this.character.manaPoints != 100) {
                 this.character.manaPoints += this.character.manaCost;
+                mana.collectSound.play();
                 this.spellBar.setPercentage(this.character.manaPoints)
                 this.level.mana.splice(index, 1)
             };
@@ -99,6 +103,7 @@ class World {
         this.level.coin.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.coins += 1;
+                coin.collectSound.play();
                 this.level.coin.splice(index, 1)
             };
         });
@@ -107,10 +112,10 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && !this.character.hasShot()) {
-            let bottle = new ThrowableObject(this.character.x + 50, this.character.y);
+            let spell = new ThrowableObject(this.character.x + 50, this.character.y);
             if (this.character.manaPoints > 0) {
-                this.checkBottleDirection(bottle);
-                this.throwableObjects.push(bottle)
+                this.checkBottleDirection(spell);
+                this.throwableObjects.push(spell)
                 this.character.manaPoints -= this.character.manaCost;
                 this.character.isShotTimer();
                 this.spellBar.setPercentage(this.character.manaPoints)
@@ -118,9 +123,9 @@ class World {
         }
     }
 
-    checkBottleDirection(bottle) {
+    checkBottleDirection(spell) {
         if (this.character.otherDirection) {
-            return bottle.direction = true
+            return spell.direction = true
         }
     }
 
@@ -131,10 +136,10 @@ class World {
         // Kamera wird mit verschoben und hinterher resettet damit sie nicht weiterläuft
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObject);
+        this.addObjectsToMap(this.level.bat);
         this.addObjectsToMap(this.level.mana);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.bat);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);

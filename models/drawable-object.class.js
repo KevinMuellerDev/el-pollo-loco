@@ -29,7 +29,7 @@ class DrawableObject{
 
     drawText(ctx){
         ctx.fillStyle = 'white'
-        ctx.font = '40px sans-serif'
+        ctx.font = '38px sans-serif'
         ctx.fillText(this.coins, 100, 107)
     }
 
