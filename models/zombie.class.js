@@ -26,14 +26,6 @@ class Zombie extends MovableObject {
     ];
 
     IMAGES_DYING = [
-        './img/enemy/Death/Zombie01_Death_003.png',
-        './img/enemy/Death/Zombie01_Death_004.png',
-        './img/enemy/Death/Zombie01_Death_005.png',
-        './img/enemy/Death/Zombie01_Death_006.png',
-        './img/enemy/Death/Zombie01_Death_007.png',
-        './img/enemy/Death/Zombie01_Death_008.png',
-        './img/enemy/Death/Zombie01_Death_009.png',
-        './img/enemy/Death/Zombie01_Death_010.png',
         './img/enemy/Death/Zombie01_Death_011.png',
         './img/enemy/Death/Zombie01_Death_012.png',
         './img/enemy/Death/Zombie01_Death_013.png',
@@ -49,7 +41,7 @@ class Zombie extends MovableObject {
 
 
     constructor() {
-        super().loadImage('./img/enemy/Walk/Zombie01_Walk_000.png');
+        super().loadImage('./img/enemy/Death/Zombie01_Death_019.png');
         this.x = 250 + Math.random() * 1400;
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DYING);
@@ -63,13 +55,13 @@ class Zombie extends MovableObject {
         //setInterval(() => { this.moveLeft(); }, 1000 / 60)
 
         setInterval(() => { 
-            if (this.isDead() && this.dyingCounter != 11 ) {
+            if (this.isDead() && this.dyingCounter != 9  ) {
                 this.playAnimation(this.IMAGES_DYING); 
                 this.height = 80;
                 this.width  = 120;
                 this.dyingSound.play();
                 this.dyingCounter++
-                if (this.dyingCounter == 11)  
+                if (this.dyingCounter == 8)   
                     this.world.level.enemies.splice(this.index, 1);
             }else if(this.dead != true){
                 this.playAnimation(this.IMAGES_WALK); 

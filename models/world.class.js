@@ -63,10 +63,12 @@ class World {
 
     checkHitEnemy() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling()) {
+            if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling() && !this.enemyHit) {
                 enemy.index = index;
                 enemy.lifePoints = 0;
                 enemy.dead = true;
+                this.enemyHit = true;
+                setTimeout(() => {this.enemyHit=false}, 1000);
             };
         });
     }
@@ -76,6 +78,7 @@ class World {
             this.throwableObjects.forEach((spell) => {
                 if (spell.isColliding(enemy) && !this.enemyHit) {
                     enemy.index = index;
+                    spell.spellExplosion.play();
                     if (!enemy.isHurt())
                         enemy.isHit();
                     if (enemy.isDead())
@@ -115,6 +118,8 @@ class World {
             let spell = new ThrowableObject(this.character.x + 50, this.character.y);
             if (this.character.manaPoints > 0) {
                 this.checkBottleDirection(spell);
+                this.character.attacking = true;
+                spell.spellSound.play();
                 this.throwableObjects.push(spell)
                 this.character.manaPoints -= this.character.manaCost;
                 this.character.isShotTimer();

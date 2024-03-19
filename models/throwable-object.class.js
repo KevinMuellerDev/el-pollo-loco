@@ -7,7 +7,9 @@ class ThrowableObject extends MovableObject {
     ];
 
     direction = false;
-
+    spellSound = new Audio('./audio/spell.mp3');
+    spellExplosion = new Audio ('./audio/spell-explosion.mp3');
+    
 
 
 
@@ -30,7 +32,6 @@ class ThrowableObject extends MovableObject {
             }else{
                 this.x -= 10;
             }
-
             this.playAnimation(this.IMAGES_SPELL)
         }, 25);
     }

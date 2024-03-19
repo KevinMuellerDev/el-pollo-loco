@@ -1,12 +1,14 @@
 class Character extends MovableObject {
     y = 345;
-    offsetY = 30; 
-    offsetX = 40;
+    offsetY = 35; 
+    offsetX = 30;
     lifePoints = 100;
     manaPoints = 100;
     manaCost = 12.5;
     idleBlinkCounter = 0;
     coins = 0;
+    attacking = false;
+    attackAniCounter = 0;
 
     IMAGES_WALK = [
         './img/Wraith_03/Walking/Wraith_03_Moving Forward_000.png',
@@ -107,6 +109,21 @@ class Character extends MovableObject {
         './img/Wraith_03/Hurt/Wraith_03_Hurt_011.png',
     ];
 
+    IMAGES_ATTACK = [
+        './img/Wraith_03/Attacking/Wraith_03_Attack_000.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_001.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_002.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_003.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_004.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_005.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_006.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_007.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_008.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_009.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_010.png',
+        './img/Wraith_03/Attacking/Wraith_03_Attack_011.png'
+    ];
+
     world;
     speed = 5;
     walking_sound = new Audio('./audio/running.mp3');
@@ -119,6 +136,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DYING);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_ATTACK);
         this.applyGravity();
         this.animate();
     }
@@ -151,6 +169,14 @@ class Character extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
 
+            } else if(this.attacking == true && this.attackAniCounter != 11){
+                this.playAnimation(this.IMAGES_ATTACK);
+                this.attackAniCounter++
+                if (this.attackAniCounter == 10) {
+                    this.attacking = false;
+                    this.attackAniCounter = 0;
+                }
+                
             } else {
                 if (this.world.keyboard.RIGHT && !this.isAboveGround() || this.world.keyboard.LEFT && !this.isAboveGround()) {
                      this.idleBlinkCounter = 0;
