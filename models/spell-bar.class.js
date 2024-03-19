@@ -15,8 +15,7 @@ class SpellBar extends DrawableObject {
     percentage = 100;
 
     constructor() {
-        super();
-        this.loadImages(this.IMAGES);
+        super().loadImages(this.IMAGES);
         this.x = 10;
         this.y = 45;
         this.setPercentage(100);

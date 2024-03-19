@@ -9,6 +9,7 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     spellBar = new SpellBar();
+    coinBar = new CoinBar();
 
 
 
@@ -114,6 +115,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bat);
         this.addObjectsToMap(this.level.mana);
+        this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
@@ -121,6 +123,9 @@ class World {
         // ------ space for fixed objects ------
         this.addToMap(this.statusBar);
         this.addToMap(this.spellBar);
+        this.addToMap(this.coinBar);
+        this.addTextToMap(this.coinBar);
+
 
         // Erneuert permanent den Canvas über die Grafikkarte
         requestAnimationFrame(() => this.draw());
@@ -143,6 +148,10 @@ class World {
 
         if (movableObject.otherDirection)
             this.reverseFlipImage(movableObject);
+    }
+
+    addTextToMap(textObject) {
+        textObject.drawText(this.ctx)
     }
 
 
