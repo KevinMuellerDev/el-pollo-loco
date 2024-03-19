@@ -26,9 +26,6 @@ class Zombie extends MovableObject {
     ];
 
     IMAGES_DYING = [
-        './img/enemy/Death/Zombie01_Death_000.png',
-        './img/enemy/Death/Zombie01_Death_001.png',
-        './img/enemy/Death/Zombie01_Death_002.png',
         './img/enemy/Death/Zombie01_Death_003.png',
         './img/enemy/Death/Zombie01_Death_004.png',
         './img/enemy/Death/Zombie01_Death_005.png',
@@ -64,12 +61,12 @@ class Zombie extends MovableObject {
         //setInterval(() => { this.moveLeft(); }, 1000 / 60)
 
         setInterval(() => { 
-            if (this.isDead() && this.dyingCounter != 19 ) {
+            if (this.isDead() && this.dyingCounter != 11 ) {
                 this.playAnimation(this.IMAGES_DYING); 
                 this.height = 80;
                 this.width  = 120;
                 this.dyingCounter++
-                if (this.dyingCounter == 18) 
+                if (this.dyingCounter == 11)  
                     this.world.level.enemies.splice(this.index, 1);
             }else if(this.dead != true){
                 this.playAnimation(this.IMAGES_WALK); 

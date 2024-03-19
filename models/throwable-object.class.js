@@ -6,6 +6,8 @@ class ThrowableObject extends MovableObject {
         './img/spell/4.png',
     ];
 
+    direction = false;
+
 
 
 
@@ -23,7 +25,12 @@ class ThrowableObject extends MovableObject {
         this.speedY = 25;
         this.applyGravity();
         setInterval(() => {
-            this.x += 10;
+            if (this.direction == false) {
+                this.x += 10;
+            }else{
+                this.x -= 10;
+            }
+
             this.playAnimation(this.IMAGES_SPELL)
         }, 25);
     }

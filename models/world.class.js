@@ -13,6 +13,7 @@ class World {
 
 
 
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -38,9 +39,9 @@ class World {
             this.checkShotEnemy();
             this.checkCollisionsMana();
             this.checkCollisionsCoin();
-
+            this.checkThrowObjects();
         }, 125);
-        setInterval(() => {this.checkThrowObjects()}, 150);
+
     }
 
 
@@ -107,12 +108,19 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D && !this.character.hasShot()) {
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y);
-            if (this.character.manaPoints > 0 ) {
+            if (this.character.manaPoints > 0) {
+                this.checkBottleDirection(bottle);
                 this.throwableObjects.push(bottle)
                 this.character.manaPoints -= this.character.manaCost;
                 this.character.isShotTimer();
                 this.spellBar.setPercentage(this.character.manaPoints)
             }
+        }
+    }
+
+    checkBottleDirection(bottle) {
+        if (this.character.otherDirection) {
+            return bottle.direction = true
         }
     }
 
@@ -123,10 +131,10 @@ class World {
         // Kamera wird mit verschoben und hinterher resettet damit sie nicht weiterläuft
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObject);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.bat);
         this.addObjectsToMap(this.level.mana);
         this.addObjectsToMap(this.level.coin);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.bat);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);

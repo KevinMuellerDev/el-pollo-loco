@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     y = 345;
     offsetY = 30; 
-    offsetX = 50;
+    offsetX = 40;
     lifePoints = 100;
     manaPoints = 100;
     manaCost = 12.5;
@@ -152,8 +152,8 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT)
 
             } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.idleBlinkCounter = 0;
+                if (this.world.keyboard.RIGHT && !this.isAboveGround() || this.world.keyboard.LEFT && !this.isAboveGround()) {
+                     this.idleBlinkCounter = 0;
                     this.playAnimation(this.IMAGES_WALK)
 
                 } else if (this.isAboveGround()) {
