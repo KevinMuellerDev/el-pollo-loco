@@ -2,7 +2,6 @@ class CoinBar extends DrawableObject{
     IMAGE = './img/objects/coin.png';
     height = 35;
     width = 35;
-    amount = 0;
 
     constructor(){
         super().loadImage(this.IMAGE);

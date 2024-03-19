@@ -6,6 +6,7 @@ class Character extends MovableObject {
     manaPoints = 100;
     manaCost = 12.5;
     idleBlinkCounter = 0;
+    coins = 0;
 
     IMAGES_WALK = [
         './img/Wraith_03/Walking/Wraith_03_Moving Forward_000.png',

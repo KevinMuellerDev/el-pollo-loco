@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2;
     lifePoints = 100;
     lastHit = 0;
+    shot = 0;
     characterHit = false;
 
 
@@ -71,6 +72,16 @@ class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000; // diff in secs
         return timepassed < 1;
+    }
+
+    hasShot(){
+        let timepassed = new Date().getTime() - this.shot;
+        timepassed = timepassed / 1000; // diff in secs
+        return timepassed < 1;
+    }
+
+    isShotTimer(){
+        this.shot = new Date().getTime();
     }
 
 

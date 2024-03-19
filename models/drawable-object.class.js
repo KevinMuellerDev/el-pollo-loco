@@ -30,7 +30,7 @@ class DrawableObject{
     drawText(ctx){
         ctx.fillStyle = 'white'
         ctx.font = '40px sans-serif'
-        ctx.fillText(this.amount, 100, 107)
+        ctx.fillText(this.coins, 100, 107)
     }
 
     drawFrame(ctx) {

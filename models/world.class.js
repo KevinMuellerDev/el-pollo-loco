@@ -37,8 +37,10 @@ class World {
             this.checkHitEnemy();
             this.checkShotEnemy();
             this.checkCollisionsMana();
-            this.checkThrowObjects();
+            this.checkCollisionsCoin();
+
         }, 125);
+        setInterval(() => {this.checkThrowObjects()}, 150);
     }
 
 
@@ -83,23 +85,32 @@ class World {
 
 
     checkCollisionsMana() {
-        this.level.mana.forEach((mana) => {
+        this.level.mana.forEach((mana, index) => {
             if (this.character.isColliding(mana) && this.character.manaPoints != 100) {
                 this.character.manaPoints += this.character.manaCost;
                 this.spellBar.setPercentage(this.character.manaPoints)
-                let index = this.level.mana.indexOf(mana);
                 this.level.mana.splice(index, 1)
+            };
+        });
+    }
+
+    checkCollisionsCoin() {
+        this.level.coin.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.character.coins += 1;
+                this.level.coin.splice(index, 1)
             };
         });
     }
 
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && !this.character.hasShot()) {
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y);
-            if (this.character.manaPoints > 0) {
+            if (this.character.manaPoints > 0 ) {
                 this.throwableObjects.push(bottle)
                 this.character.manaPoints -= this.character.manaCost;
+                this.character.isShotTimer();
                 this.spellBar.setPercentage(this.character.manaPoints)
             }
         }
@@ -124,7 +135,7 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.spellBar);
         this.addToMap(this.coinBar);
-        this.addTextToMap(this.coinBar);
+        this.addTextToMap(this.character);
 
 
         // Erneuert permanent den Canvas über die Grafikkarte
