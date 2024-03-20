@@ -27,6 +27,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.throwableObjects.world = this;
         this.level.enemies.forEach(zombie => {
             zombie.world = this;
         });
@@ -75,9 +76,11 @@ class World {
 
     checkShotEnemy() {
         this.level.enemies.forEach((enemy, index) => {
-            this.throwableObjects.forEach((spell) => {
+            this.throwableObjects.forEach((spell, indexSpell) => {
                 if (spell.isColliding(enemy) && !this.enemyHit) {
                     enemy.index = index;
+                    spell.index = indexSpell;
+                    spell.explosion = true;
                     spell.spellExplosion.play();
                     if (!enemy.isHurt())
                         enemy.isHit();
