@@ -56,6 +56,8 @@ class MovableObject extends DrawableObject {
     isHit() {
         if (this instanceof Endboss) {
             this.lifePoints -= 5;
+            this.bossHit.playbackRate = 2;
+            this.bossHit.play();
         } else {
             this.lifePoints -= 1;
         }

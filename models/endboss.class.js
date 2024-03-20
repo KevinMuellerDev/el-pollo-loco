@@ -7,7 +7,9 @@ class Endboss extends MovableObject {
     lifePoints = 40;
     dead = false;
     index;
-    dyingCounter=0;
+    dyingCounter = 0;
+    bossHit = new Audio('./audio/zombie-boss.mp3');
+    
 
     IMAGES_WALK = [
         './img/boss/Walk/Zombie4_Walk_000.png',
@@ -59,15 +61,15 @@ class Endboss extends MovableObject {
 
     animate() {
         /* setInterval(() => { this.moveLeft(); }, 1000 / 60) */
-        setInterval(() => { 
-            if (this.isDead() && this.dyingCounter != 15 ) {
+        setInterval(() => {
+            if (this.isDead() && this.dyingCounter != 15) {
                 this.y = 220;
-                this.playAnimation(this.IMAGES_DYING); 
+                this.playAnimation(this.IMAGES_DYING);
                 this.dyingCounter++
                 if (this.dyingCounter == 15)
                     this.world.level.enemies.splice(this.index, 1);
-            }else if(this.dead != true){
-                this.playAnimation(this.IMAGES_WALK); 
+            } else if (this.dead != true) {
+                this.playAnimation(this.IMAGES_WALK);
             }
         }, 1000 / 11)
     }
