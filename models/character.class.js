@@ -127,6 +127,7 @@ class Character extends MovableObject {
     world;
     speed = 5;
     walking_sound = new Audio('./audio/running.mp3');
+    hurtSound = new Audio('./audio/player-hit.mp3');
 
     constructor() {
         super().loadImage('./img/Wraith_03/Idle/Wraith_03_Idle_000.png');
@@ -168,7 +169,7 @@ class Character extends MovableObject {
 
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
-
+                this.hurtSound.play()
             } else if(this.attacking == true && this.attackAniCounter != 11){
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.attackAniCounter++
