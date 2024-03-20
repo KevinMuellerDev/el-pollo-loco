@@ -1,15 +1,16 @@
 class Endboss extends MovableObject {
-    height = 250;
+    height = 270;
     width = 250;
-    y = 190;
+    y = 170;
     offsetX = 10;
     x = 1800;
     lifePoints = 40;
+    world;
     dead = false;
     index;
     dyingCounter = 0;
     bossHit = new Audio('./audio/zombie-boss.mp3');
-    
+
 
     IMAGES_WALK = [
         './img/boss/Walk/Zombie4_Walk_000.png',
@@ -55,12 +56,21 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DYING);
         this.speed = 0.1 + Math.random() * 0.15;
-        this.animate();
+        setTimeout(() => {this.animate()}, 1000);
     }
 
 
     animate() {
-        /* setInterval(() => { this.moveLeft(); }, 1000 / 60) */
+        setInterval(() => {
+            this.moveLeft();
+
+            if (this.checkEndOfMap()) {
+                this.world.level.level_end_x = this.x - (this.width / 2);
+                console.log(this.world.level.level_end_x)    
+            }
+
+
+        }, 1000 / 60)
         setInterval(() => {
             if (this.isDead() && this.dyingCounter != 15) {
                 this.y = 220;
@@ -72,6 +82,10 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALK);
             }
         }, 1000 / 11)
+    }
+
+    checkEndOfMap() {
+        return this.x < this.world.level.level_end_x;
     }
 
 
