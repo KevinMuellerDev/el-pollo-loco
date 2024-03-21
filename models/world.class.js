@@ -86,8 +86,8 @@ class World {
                         enemy.isHit();
                     if (enemy.isDead())
                         enemy.dead = true;
-                        this.enemyHit = true;
-                        setTimeout(() => {this.enemyHit=false}, 1000);
+                    this.enemyHit = true;
+                    setTimeout(() => {this.enemyHit=false}, 1000);
                 };
             });
         });
