@@ -1,0 +1,9 @@
+
+@font-face {
+    font-display: swap;
+    font-family: 'Halloween';
+    font-style: normal;
+    font-weight: 100;
+    src: url('../assets/fonts/CFHalloween-Regular.ttf') format('woff2'),
+        url('../assets/fonts/CFHalloween-Regular.ttf') format('truetype');
+}

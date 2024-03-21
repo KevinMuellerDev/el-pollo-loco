@@ -1,7 +1,13 @@
 const level1 = new Level(
     [
         new Zombie(),
+        new Zombie2(),
         new Zombie(),
+        new Zombie(),
+        new Zombie2(),
+        new Zombie(),
+        new Zombie(),
+        new Zombie2(),
         new Zombie(),
         new Endboss()
     ],

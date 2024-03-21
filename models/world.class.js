@@ -69,7 +69,7 @@ class World {
                 enemy.lifePoints = 0;
                 enemy.dead = true;
                 this.enemyHit = true;
-                setTimeout(() => {this.enemyHit=false}, 1000);
+                setTimeout(() => {this.enemyHit=false}, 800);
             };
         });
     }
