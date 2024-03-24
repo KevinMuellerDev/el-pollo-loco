@@ -38,8 +38,7 @@ class MovableObject extends DrawableObject {
     isColliding(obj) {
         return (this.x + this.width - this.offsetX) >= obj.x && this.x <= (obj.x + obj.width - this.offsetX) &&
             (this.y + this.offsetY + this.height) >= obj.y &&
-            (this.y + this.offsetY) <= (obj.y + obj.height) /* &&
-            obj.onCollisionCourse; */ // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+            (this.y + this.offsetY) <= (obj.y + obj.height)
 
     }
 
@@ -58,10 +57,11 @@ class MovableObject extends DrawableObject {
             this.lifePoints -= 5;
             this.bossHit.playbackRate = 2;
             this.bossHit.play();
-        } else {
+        } else if(this instanceof Zombie || this instanceof Zombie2) {
             this.lifePoints -= 1;
+        }else{
+            this.lifePoints -= 17;
         }
-        console.log(this, this.lifePoints);
         if (this.lifePoints <= 0) {
             this.lifePoints = 0;
         } else {

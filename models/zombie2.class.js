@@ -53,7 +53,10 @@ class Zombie2 extends MovableObject{
 
     animate() {
 
-        setInterval(() => { this.moveLeft(); }, 1000 / 60)
+        setInterval(() => { 
+            if (!this.dead) 
+                this.moveLeft(); 
+        }, 1000 / 10)
 
         setInterval(() => { 
             this.setVolume(); 

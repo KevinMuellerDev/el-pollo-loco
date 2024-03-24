@@ -9,6 +9,7 @@ body {
     background: url(./img/background/2_game_background.png);
     background-position: center;
     background-size: cover;
+    overflow: hidden;
 }
 
 h1 {
