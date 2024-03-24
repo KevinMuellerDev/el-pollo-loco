@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     y = 345;
     offsetY = 35; 
-    offsetX = 30;
+    offsetX = 50;
     lifePoints = 100;
     manaPoints = 100;
     manaCost = 12.5;
@@ -145,6 +145,7 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {
+            this.setVolume();
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -203,6 +204,10 @@ class Character extends MovableObject {
         }
     }
 
+    setVolume(){
+        this.walking_sound.volume = this.world.volume;
+        this.hurtSound.volume = this.world.volume;
+    }
 
 
 }

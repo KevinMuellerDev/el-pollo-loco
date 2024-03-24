@@ -8,8 +8,30 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
+
+function toggleAudio(){
+    if (world.volume== 0) {
+        world.volume = 1;
+        document.getElementById('sound-option').src = './img/menu/18.png'
+    }else{
+        world.volume = 0;
+        document.getElementById('sound-option').src = './img/menu/18_mute.png'
+    }
+}
+
+function toggleFullscreen(){
+    if(canvas.webkitRequestFullScreen) {
+        canvas.webkitRequestFullScreen();
+    }
+   else {
+      canvas.mozRequestFullScreen();
+   }     
+}
+
+
 window.addEventListener('click', (event) => {
     if (event) {
+        bgSound.volume = world.volume;
         bgSound.play();
         bgSound.onended = (() => {
             bgSound.play();

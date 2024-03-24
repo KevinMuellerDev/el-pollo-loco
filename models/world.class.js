@@ -1,7 +1,7 @@
 class World {
-
+    sounds;
     character = new Character();
-    level = level1;
+    level;
     throwableObjects = [];
     ctx;
     canvas;
@@ -11,6 +11,8 @@ class World {
     spellBar = new SpellBar();
     coinBar = new CoinBar();
     enemyHit = false;
+    gameStart = false;
+    volume = 0;
 
 
 
@@ -19,6 +21,8 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        initLevel(this);
+        this.level = level1;
         this.setWorld();
         this.draw();
         this.run();
@@ -27,7 +31,6 @@ class World {
 
     setWorld() {
         this.character.world = this;
-        this.throwableObjects.world = this;
         this.level.enemies.forEach(zombie => {
             zombie.world = this;
         });
@@ -43,7 +46,6 @@ class World {
             this.checkCollisionsCoin();
             this.checkThrowObjects();
         }, 125);
-
     }
 
 
@@ -96,6 +98,7 @@ class World {
 
     checkCollisionsMana() {
         this.level.mana.forEach((mana, index) => {
+            mana.collectSound.volume = this.volume;
             if (this.character.isColliding(mana) && this.character.manaPoints != 100) {
                 this.character.manaPoints += this.character.manaCost;
                 mana.collectSound.play();
@@ -107,6 +110,7 @@ class World {
 
     checkCollisionsCoin() {
         this.level.coin.forEach((coin, index) => {
+            coin.collectSound.volume = this.volume;
             if (this.character.isColliding(coin)) {
                 this.character.coins += 1;
                 coin.collectSound.play();
@@ -118,7 +122,7 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && !this.character.hasShot()) {
-            let spell = new ThrowableObject(this.character.x + 50, this.character.y);
+            let spell = new ThrowableObject(this.character.x + 50, this.character.y, this);
             if (this.character.manaPoints > 0) {
                 this.checkBottleDirection(spell);
                 this.character.attacking = true;

@@ -5,6 +5,7 @@ class Zombie2 extends MovableObject{
     dead = false;
     index;
     dyingCounter=0;
+    world;
 
     IMAGES_WALK = [
         './img/enemy2/Walk/Zombie02_Walk_001.png',
@@ -55,6 +56,7 @@ class Zombie2 extends MovableObject{
         //setInterval(() => { this.moveLeft(); }, 1000 / 60)
 
         setInterval(() => { 
+            this.setVolume(); 
             if (this.isDead() && this.dyingCounter != 9  ) {
                 this.playAnimation(this.IMAGES_DYING); 
                 this.height = 80;
@@ -67,5 +69,9 @@ class Zombie2 extends MovableObject{
                 this.playAnimation(this.IMAGES_WALK); 
             }
         }, 1000 / 11)
+    }
+
+    setVolume(){
+        this.dyingSound.volume = world.volume;
     }
 }

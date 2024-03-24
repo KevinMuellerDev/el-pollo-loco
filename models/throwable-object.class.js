@@ -29,10 +29,11 @@ class ThrowableObject extends MovableObject {
 
 
 
-    constructor(x, y) {
+    constructor(x, y, world) {
         super().loadImage('./img/spell/1.png');;
         this.loadImages(this.IMAGES_SPELL);
         this.loadImages(this.IMAGES_EXPLOSION);
+        this.world=world;
         this.x = x;
         this.y = y;
         this.height = 50;
@@ -44,6 +45,7 @@ class ThrowableObject extends MovableObject {
         this.speedY = 25;
         this.applyGravity();
         setInterval(() => {
+            this.setVolume();
             if (this.explosion == true && this.explosionCounter < 9) {
                 this.speedY = 0;
                 this.playAnimation(this.IMAGES_EXPLOSION);
@@ -61,5 +63,10 @@ class ThrowableObject extends MovableObject {
                 this.playAnimation(this.IMAGES_SPELL)
             }
         }, 25);
+    }
+
+    setVolume(){
+        this.spellExplosion.volume = this.world.volume;
+        this.spellSound.volume = this.world.volume;
     }
 }

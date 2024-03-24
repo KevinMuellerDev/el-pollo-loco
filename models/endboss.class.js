@@ -100,6 +100,7 @@ class Endboss extends MovableObject {
 
     intervalAnimation(){
         setInterval(() => {
+            this.setVolume();
             if (this.isDead() && this.dyingCounter != 11) {
                 this.dyingBoss();
             } else if (this.isEnraged()) {
@@ -145,6 +146,11 @@ class Endboss extends MovableObject {
             this.startedMoving = true;
             this.width = 250;
         }
+    }
+
+    setVolume(){
+        this.bossHit.volume = this.world.volume;
+        this.bossRage.volume = this.world.volume;
     }
 
 }
