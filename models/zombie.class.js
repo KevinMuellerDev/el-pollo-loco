@@ -43,17 +43,20 @@ class Zombie extends MovableObject {
 
     constructor() {
         super().loadImage('./img/enemy/Death/Zombie01_Death_019.png');
-        this.x = 250 + Math.random() * 1400;
+        this.x = 300 + Math.random() * 1400;
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DYING);
-        this.speed = 0.15 + Math.random() *  0.15;
+        this.speed = 0.15 + Math.random() *  1;
         this.animate();
     }
 
 
     animate() {
 
-        //setInterval(() => { this.moveLeft(); }, 1000 / 60)
+        setInterval(() => { 
+            if (!this.dead) 
+                this.moveLeft(); 
+        }, 1000 / 10)
 
         setInterval(() => { 
             this.setVolume();

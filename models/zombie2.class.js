@@ -46,14 +46,14 @@ class Zombie2 extends MovableObject{
         this.x = 250 + Math.random() * 1400;
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DYING);
-        this.speed = 0.15 + Math.random() * 0.15;
+        this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
 
 
     animate() {
 
-        //setInterval(() => { this.moveLeft(); }, 1000 / 60)
+        setInterval(() => { this.moveLeft(); }, 1000 / 60)
 
         setInterval(() => { 
             this.setVolume(); 

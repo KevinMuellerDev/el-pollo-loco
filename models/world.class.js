@@ -179,7 +179,7 @@ class World {
         if (movableObject.otherDirection)
             this.flipImage(movableObject);
 
-        movableObject.drawFrame(this.ctx);
+        //movableObject.drawFrame(this.ctx);
         movableObject.draw(this.ctx);
 
         if (movableObject.otherDirection)
