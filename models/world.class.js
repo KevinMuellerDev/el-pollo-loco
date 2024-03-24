@@ -66,7 +66,7 @@ class World {
 
     checkHitEnemy() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy) && this.character.isHitEnemy(enemy) && this.character.isFalling() && !this.enemyHit) {
+            if (this.character.isColliding(enemy) &&  this.character.isAboveGround() && this.character.isFalling() && !this.enemyHit) {
                 enemy.index = index;
                 enemy.lifePoints = 0;
                 enemy.dead = true;

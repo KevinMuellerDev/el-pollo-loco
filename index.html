@@ -31,10 +31,12 @@
     <div class="game">
         <canvas id="canvas" width="720px" height="480px">
         </canvas>
-        <div class="start-screen"></div>
+        <div id="startscreen" class="start-screen">
+            <img src="./img/menu/start.png" alt="" onclick="gameStart()">
+        </div>
         <div class="option">
-            <img id="sound-option" src="./img/menu/18_mute.png" alt="" onclick="toggleAudio()">
-            <img src="./img/menu/fullscreen.png" alt=""  onclick="toggleFullscreen()">
+            <img id="sound-option" src="./img/menu/mute-sound.png" alt="" onclick="toggleAudio()">
+            <img id="fullscreen-option" src="./img/menu/fullscreen.png" alt=""  onclick="toggleFullscreen()">
         </div>
     </div>
 

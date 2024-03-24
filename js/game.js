@@ -2,20 +2,36 @@ let canvas;
 let world;
 let keyboard = new Keyboard()
 let bgSound = new Audio('./audio/halloween-bg.mp3');
+let startGame = false; 
+
 
 function init() {
     canvas = document.getElementById('canvas');
+}
+
+function gameStart(){
+    startGame = true;
+    document.getElementById('startscreen').style.display = 'none';
+    document.getElementById('fullscreen-option').style.display = 'block';
     world = new World(canvas, keyboard);
 }
 
-
 function toggleAudio(){
-    if (world.volume== 0) {
+    if (startGame == false && bgSound.volume== 0) {
+        bgSound.volume =1;
+        document.getElementById('sound-option').src = './img/menu/play-sound.png'
+        return
+    } else if(startGame == false && bgSound.volume == 1){
+        bgSound.volume =0;
+        document.getElementById('sound-option').src = './img/menu/mute-sound.png'
+        return
+    }
+    if (world.volume== 0 ) {
         world.volume = 1;
-        document.getElementById('sound-option').src = './img/menu/18.png'
+        document.getElementById('sound-option').src = './img/menu/play-sound.png'
     }else{
         world.volume = 0;
-        document.getElementById('sound-option').src = './img/menu/18_mute.png'
+        document.getElementById('sound-option').src = './img/menu/mute-sound.png'
     }
 }
 
@@ -31,7 +47,8 @@ function toggleFullscreen(){
 
 window.addEventListener('click', (event) => {
     if (event) {
-        bgSound.volume = world.volume;
+        if (startGame == true) 
+            bgSound.volume = world.volume;
         bgSound.play();
         bgSound.onended = (() => {
             bgSound.play();
@@ -64,7 +81,6 @@ window.addEventListener('keydown', (event) => {
 
     if (event.key == 'd') {
         keyboard.D = true;
-        console.log(keyboard.D);
     }
 })
 
@@ -92,6 +108,5 @@ window.addEventListener('keyup', (event) => {
 
     if (event.key == 'd') {
         keyboard.D = false;
-        console.log(keyboard.D);
     }
 })
