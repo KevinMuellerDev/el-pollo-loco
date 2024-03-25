@@ -51,30 +51,40 @@ class Zombie2 extends MovableObject{
     }
 
 
+    /**
+     * animates character in canvas
+     */
     animate() {
+        setInterval(() => { if (!this.dead) this.moveLeft(); }, 1000 / 10)
+        setInterval(() => {
+            this.setVolume();
+            if (this.isDead() && this.dyingCounter != 9)
+                this.dyingAnimation();
+            else if (this.dead != true)
+                this.playAnimation(this.IMAGES_WALK);
 
-        setInterval(() => { 
-            if (!this.dead) 
-                this.moveLeft(); 
-        }, 1000 / 10)
-
-        setInterval(() => { 
-            this.setVolume(); 
-            if (this.isDead() && this.dyingCounter != 9  ) {
-                this.playAnimation(this.IMAGES_DYING); 
-                this.height = 80;
-                this.width  = 120;
-                this.dyingSound.play();
-                this.dyingCounter++
-                if (this.dyingCounter == 8)   
-                    this.world.level.enemies.splice(this.index, 1);
-            }else if(this.dead != true){
-                this.playAnimation(this.IMAGES_WALK); 
-            }
         }, 1000 / 11)
     }
 
-    setVolume(){
+
+    /**
+     * animation when Zombie is dying
+     */
+    dyingAnimation() {
+        this.playAnimation(this.IMAGES_DYING);
+        this.height = 80;
+        this.width = 120;
+        this.dyingSound.play();
+        this.dyingCounter++
+        if (this.dyingCounter == 8)
+            this.world.level.enemies.splice(this.index, 1);
+    }
+
+
+    /**
+     * sets volume to world.volume
+     */
+    setVolume() {
         this.dyingSound.volume = world.volume;
     }
 }
