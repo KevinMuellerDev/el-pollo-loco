@@ -10,6 +10,7 @@ class World {
     statusBar = new StatusBar();
     spellBar = new SpellBar();
     coinBar = new CoinBar();
+    bossStatusBar = new EndbossStatusBar();
     enemyHit = false;
     gameStart = false;
     volume = 0;
@@ -160,6 +161,7 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.spellBar);
         this.addToMap(this.coinBar);
+        this.addToMap(this.bossStatusBar);
         this.addTextToMap(this.character);
 
 

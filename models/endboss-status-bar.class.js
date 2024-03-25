@@ -1,4 +1,4 @@
-class SpellBar extends DrawableObject {
+class EndbossStatusBar extends DrawableObject {
     IMAGES = [
         './img/spellpool/spell_0.png',
         './img/spellpool/spell_1.png',
@@ -16,8 +16,8 @@ class SpellBar extends DrawableObject {
 
     constructor() {
         super().loadImages(this.IMAGES);
-        this.x = 10;
-        this.y = 45;
+        this.x = 530;
+        this.y = 50;
         this.setPercentage(100);
     }
 
