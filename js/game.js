@@ -1,6 +1,6 @@
 let canvas;
 let world;
-let keyboard = new Keyboard()
+let keyboard = new Keyboard();
 let bgSound = new Audio('./audio/halloween-bg.mp3');
 let startGame = false;
 
