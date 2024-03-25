@@ -52,9 +52,10 @@ class MovableObject extends DrawableObject {
     }
 
 
-    isHit() {
+    isHit(bossStatusBar) {
         if (this instanceof Endboss) {
             this.lifePoints -= 5;
+            bossStatusBar.setPercentage(this.lifePoints);
             this.bossHit.playbackRate = 2;
             this.bossHit.play();
         } else if(this instanceof Zombie || this instanceof Zombie2) {

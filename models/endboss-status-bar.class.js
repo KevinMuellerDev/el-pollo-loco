@@ -12,13 +12,13 @@ class EndbossStatusBar extends DrawableObject {
     ];
     height = 25;
     width = 180;
-    percentage = 100;
+    percentage = 40;
 
     constructor() {
         super().loadImages(this.IMAGES);
         this.x = 530;
         this.y = 50;
-        this.setPercentage(100);
+        this.setPercentage(40);
     }
 
     setPercentage(percentage) {
@@ -28,19 +28,19 @@ class EndbossStatusBar extends DrawableObject {
     }
 
     resolveImageIndex() {
-        if (this.percentage > 87.5) {
+        if (this.percentage > 35) {
             return 8;
-        } else if (this.percentage > 75) {
+        } else if (this.percentage > 30) {
             return 7;
-        } else if (this.percentage > 62.5) {
-            return 6;
-        } else if (this.percentage > 50) {
-            return 5;
-        } else if (this.percentage > 37.5) {
-            return 4;
         } else if (this.percentage > 25) {
+            return 6;
+        } else if (this.percentage > 20) {
+            return 5;
+        } else if (this.percentage > 15) {
+            return 4;
+        } else if (this.percentage > 10) {
             return 3;
-        } else if (this.percentage > 12.5) {
+        } else if (this.percentage > 5) {
             return 2;
         } else if (this.percentage > 0) {
             return 1;

@@ -12,6 +12,7 @@ class World {
     coinBar = new CoinBar();
     bossStatusBar = new EndbossStatusBar();
     enemyHit = false;
+    endbossStartedMoving = false;
     gameStart = false;
     volume = 0;
 
@@ -86,7 +87,8 @@ class World {
                     spell.explosion = true;
                     spell.spellExplosion.play();
                     if (!enemy.isHurt())
-                        enemy.isHit();
+                        enemy.isHit(this.bossStatusBar);
+
                     if (enemy.isDead())
                         enemy.dead = true;
                     this.enemyHit = true;
@@ -161,7 +163,10 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.spellBar);
         this.addToMap(this.coinBar);
-        this.addToMap(this.bossStatusBar);
+        if (this.character.x >= 1400 || this.endbossStartedMoving == true) {
+            this.addToMap(this.bossStatusBar);
+            this.endbossStartedMoving = true;
+        }
         this.addTextToMap(this.character);
 
 
