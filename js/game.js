@@ -45,20 +45,23 @@ function clearAllIntervals() {
 
 
 function toggleAudio() {
+    bgSound.play();
     if (startGame == false && bgSound.volume == 0) {
-        bgSound.volume = 1;
+        bgSound.volume = 0.6;
         document.getElementById('sound-option').src = './img/menu/play-sound.png'
         return
-    } else if (startGame == false && bgSound.volume == 1) {
+    } else if (startGame == false && bgSound.volume == 0.6) {
         bgSound.volume = 0;
         document.getElementById('sound-option').src = './img/menu/mute-sound.png'
         return
     }
     if (world.volume == 0) {
         world.volume = 1;
+        bgSound.volume= 0.6;
         document.getElementById('sound-option').src = './img/menu/play-sound.png'
     } else {
         world.volume = 0;
+        bgSound.volume = 0;
         document.getElementById('sound-option').src = './img/menu/mute-sound.png'
     }
 }
@@ -73,17 +76,6 @@ function toggleFullscreen() {
     }
 }
 
-
-window.addEventListener('click', (event) => {
-    if (event) {
-        if (startGame == true)
-            bgSound.volume = world.volume;
-        bgSound.play();
-        bgSound.onended = (() => {
-            bgSound.play();
-        })
-    }
-})
 
 
 window.addEventListener('keydown', (event) => {

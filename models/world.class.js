@@ -17,6 +17,8 @@ class World {
     gameEnd = false;
     gameWon = false;
     gameID = 0;
+    GAME_OVER = new Audio('./audio/game-over.mp3');
+    GAME_WON = new Audio('./audio/game-cleared.mp3');
     volume = 0;
 
 
@@ -299,6 +301,11 @@ class World {
         this.addTextToMap(this.character);
     }
 
+
+
+    /**
+     * handles the logic for end of the game
+     */
     gameEnded(){
         if (this.gameEnd === true) {
             clearAllIntervals();
@@ -308,8 +315,10 @@ class World {
             document.getElementById('fullscreen-option').style.display = 'none';   
             if (this.gameWon === true) {
                 document.getElementById('game-won').style.display = 'block';  
+                this.GAME_WON.play();
             } else{
                 document.getElementById('game-over').style.display = 'block';  
+                this.GAME_OVER.play();
             }
         }
     }
