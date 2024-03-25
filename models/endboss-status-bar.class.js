@@ -20,7 +20,7 @@ class EndbossStatusBar extends DrawableObject {
         this.y = 50;
         this.setPercentage(40);
     }
-
+    
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];

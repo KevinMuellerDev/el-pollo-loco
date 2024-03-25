@@ -1,6 +1,6 @@
 class Character extends MovableObject {
     y = 345;
-    offsetY = 35; 
+    offsetY = 35;
     offsetX = 50;
     lifePoints = 100;
     manaPoints = 100;
@@ -9,6 +9,10 @@ class Character extends MovableObject {
     coins = 0;
     attacking = false;
     attackAniCounter = 0;
+    world;
+    speed = 5;
+    walking_sound = new Audio('./audio/running.mp3');
+    hurtSound = new Audio('./audio/player-hit.mp3');
 
     IMAGES_WALK = [
         './img/Wraith_03/Walking/Wraith_03_Moving Forward_000.png',
@@ -124,10 +128,6 @@ class Character extends MovableObject {
         './img/Wraith_03/Attacking/Wraith_03_Attack_011.png'
     ];
 
-    world;
-    speed = 5;
-    walking_sound = new Audio('./audio/running.mp3');
-    hurtSound = new Audio('./audio/player-hit.mp3');
 
     constructor() {
         super().loadImage('./img/Wraith_03/Idle/Wraith_03_Idle_000.png');
@@ -142,73 +142,161 @@ class Character extends MovableObject {
         this.animate();
     }
 
-    animate() {
 
+    /**
+     * animates character in canvas
+     */
+    animate() {
+        this.actionInterval();
+        this.animationInterval();
+    }
+
+
+    /**
+     * handles action logic for the character
+     */
+    actionInterval(){
         setInterval(() => {
             this.setVolume();
             this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                if (!this.isAboveGround()) 
-                    this.walking_sound.play();
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 100) {
-                this.moveLeft(true);
-                if (!this.isAboveGround()) 
-                    this.walking_sound.play();
-            }
+            this.characterMovement();
             this.world.camera_x = -this.x + 100;
-
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            if (this.isReadyToJump())
                 this.jump();
-            }
         }, 1000 / 60)
+    }
 
 
+    /**
+     * handles the animation logic for the character
+     */
+    animationInterval(){
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DYING)
-
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
                 this.hurtSound.play()
-            } else if(this.attacking == true && this.attackAniCounter != 11){
+            } else if (this.isAttacking()) {
                 this.playAnimation(this.IMAGES_ATTACK);
-                this.attackAniCounter++
-                if (this.attackAniCounter == 10) {
-                    this.attacking = false;
-                    this.attackAniCounter = 0;
-                }
-                
+                this.attackAnimationCounter();
             } else {
-                if (this.world.keyboard.RIGHT && !this.isAboveGround() || this.world.keyboard.LEFT && !this.isAboveGround()) {
-                     this.idleBlinkCounter = 0;
-                    this.playAnimation(this.IMAGES_WALK)
-
-                } else if (this.isAboveGround()) {
-                    this.idleBlinkCounter = 0;
-                    this.playAnimation(this.IMAGES_JUMPING);
-
-                } else {
-                    this.characterIdle();
-                }
+                this.idleAnimationLogic();
             }
         }, 1000 / 11)
     }
 
-    characterIdle(){
-        if (this.idleBlinkCounter <200) {
+
+    /**
+     * îdle animation 
+     */
+    characterIdle() {
+        if (this.idleBlinkCounter < 200) {
             this.playAnimation(this.IMAGES_IDLE);
             this.idleBlinkCounter++;
-        } else{
+        } else {
             this.playAnimation(this.IMAGES_IDLE_BLINK)
         }
     }
 
-    setVolume(){
+
+    /**
+     * handles the moving of the character
+     */
+    characterMovement() {
+        if (this.isWalkingRight()) {
+            this.moveRight();
+            if (!this.isAboveGround())
+                this.walking_sound.play();
+        } else if (this.isWalkingLeft()) {
+            this.moveLeft(true);
+            if (!this.isAboveGround())
+                this.walking_sound.play();
+        }
+    }
+
+
+    /**
+     * counter to interrupt the animation after 1 cycle
+     */
+    attackAnimationCounter() {
+        this.attackAniCounter++
+        if (this.attackAniCounter == 10) {
+            this.attacking = false;
+            this.attackAniCounter = 0;
+        }
+    }
+
+
+    /**
+     * handles and resets idle status of the character
+     */
+    idleAnimationLogic() {
+        if (this.isWalkingOnGround()) {
+            this.idleBlinkCounter = 0;
+            this.playAnimation(this.IMAGES_WALK)
+
+        } else if (this.isAboveGround()) {
+            this.idleBlinkCounter = 0;
+            this.playAnimation(this.IMAGES_JUMPING);
+
+        } else {
+            this.characterIdle();
+        }
+    }
+
+
+    /**
+     * sets the volume to world.volume
+     */
+    setVolume() {
         this.walking_sound.volume = this.world.volume;
         this.hurtSound.volume = this.world.volume;
+    }
+
+
+    /**
+     * checks if character is moving right
+     * @returns true if moving, false if not
+     */
+    isWalkingRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+    }
+
+
+    /**
+     * checks if character is moving left
+     * @returns true if moving, false if not
+     */
+    isWalkingLeft() {
+        return this.world.keyboard.LEFT && this.x > 100;
+    }
+    
+
+    /**
+     * checks if character is walking on ground
+     * @returns true if on ground, false if not
+     */
+    isWalkingOnGround() {
+        return this.world.keyboard.RIGHT && !this.isAboveGround() || this.world.keyboard.LEFT && !this.isAboveGround();
+    }
+
+
+    /**
+     * checks if character is ready to jump
+     * @returns true if yes, false if not
+     */
+    isReadyToJump() {
+        return this.world.keyboard.SPACE && !this.isAboveGround();
+    }
+
+
+    /**
+     * checks if character is attacking and the cycle isn't finished
+     * @returns true if yes, false if not
+     */
+    isAttacking() {
+        return this.attacking == true && this.attackAniCounter != 11;
     }
 
 
