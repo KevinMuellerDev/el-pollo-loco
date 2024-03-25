@@ -7,13 +7,17 @@ let startGame = false;
 // Listen for resize changes
 window.addEventListener("resize", function () {
     let orientationInfo = document.getElementById('landscape');
-    // Get screen size (inner/outerWidth, inner/outerHeight)
-    if (window.innerWidth > window.innerHeight && window.innerHeight < 500) {
+    if (checkOrientation() ) {
+        console.log(window.innerWidth)
         orientationInfo.classList.add('d-none');
-    } else{
+    } else if(!checkOrientation() && window.innerWidth < 900){
         orientationInfo.classList.remove('d-none');
     }
 }, false);
+
+function checkOrientation(){
+    return (window.innerWidth > window.innerHeight);
+}
 
 function init() {
     canvas = document.getElementById('canvas');

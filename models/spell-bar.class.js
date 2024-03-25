@@ -21,12 +21,22 @@ class SpellBar extends DrawableObject {
         this.setPercentage(100);
     }
 
+
+    /**
+     * sets percentage of given stat and resolves image Index
+     * @param {number} percentage - number to set percentage
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+
+    /**
+     * resolves the image Index
+     * @returns index of picture to be shown
+     */
     resolveImageIndex() {
         if (this.percentage > 87.5) {
             return 8;
