@@ -91,7 +91,7 @@ class Endboss extends MovableObject {
     /**
      * handles action logic for the character
      */
-    intervalMovement(){
+    intervalMovement() {
         setInterval(() => {
             if (this.startedMoving && this.dead != true) {
                 this.moveLeft();
@@ -106,7 +106,7 @@ class Endboss extends MovableObject {
     /**
      * handles the animation logic for the character
      */
-    intervalAnimation(){
+    intervalAnimation() {
         setInterval(() => {
             this.setVolume();
             if (this.isDead() && this.dyingCounter != 11) {
@@ -128,8 +128,11 @@ class Endboss extends MovableObject {
         this.width = 270;
         this.playAnimation(this.IMAGES_DYING);
         this.dyingCounter++
-        if (this.dyingCounter == 11)
+        if (this.dyingCounter == 11) {
+            this.world.gameWon = true;
+            this.world.gameEnd = true;
             this.world.level.enemies.splice(this.index, 1);
+        }
     }
 
 
@@ -151,7 +154,7 @@ class Endboss extends MovableObject {
     /**
      * sets the volume to world.volume
      */
-    setVolume(){
+    setVolume() {
         this.bossHit.volume = this.world.volume;
         this.bossRage.volume = this.world.volume;
     }

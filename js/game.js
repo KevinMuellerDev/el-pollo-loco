@@ -4,31 +4,45 @@ let keyboard = new Keyboard();
 let bgSound = new Audio('./audio/halloween-bg.mp3');
 let startGame = false;
 
+
+
 // Listen for resize changes
 window.addEventListener("resize", function () {
     let orientationInfo = document.getElementById('landscape');
-    if (checkOrientation() ) {
+    if (checkOrientation()) {
         console.log(window.innerWidth)
         orientationInfo.classList.add('d-none');
-    } else if(!checkOrientation() && window.innerWidth < 900){
+    } else if (!checkOrientation() && window.innerWidth < 900) {
         orientationInfo.classList.remove('d-none');
     }
 }, false);
 
-function checkOrientation(){
+
+function checkOrientation() {
     return (window.innerWidth > window.innerHeight);
 }
 
+
 function init() {
     canvas = document.getElementById('canvas');
+    bgSound.volume = 0;
 }
+
 
 function gameStart() {
     startGame = true;
     document.getElementById('startscreen').style.display = 'none';
     document.getElementById('fullscreen-option').style.display = 'block';
+    document.getElementById('game-won').style.display = 'none';
+    document.getElementById('game-over').style.display = 'none';  
     world = new World(canvas, keyboard);
 }
+
+
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
 
 function toggleAudio() {
     if (startGame == false && bgSound.volume == 0) {
@@ -48,6 +62,7 @@ function toggleAudio() {
         document.getElementById('sound-option').src = './img/menu/mute-sound.png'
     }
 }
+
 
 function toggleFullscreen() {
     if (canvas.webkitRequestFullScreen) {
@@ -69,6 +84,7 @@ window.addEventListener('click', (event) => {
         })
     }
 })
+
 
 window.addEventListener('keydown', (event) => {
 
@@ -97,6 +113,7 @@ window.addEventListener('keydown', (event) => {
         keyboard.D = true;
     }
 })
+
 
 window.addEventListener('keyup', (event) => {
 

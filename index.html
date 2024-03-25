@@ -33,11 +33,13 @@
         <canvas id="canvas" width="720px" height="480px">
         </canvas>
         <div id="startscreen" class="start-screen">
-            <img src="./img/menu/start.png" alt="" onclick="gameStart()">
+            <img id="game-won" src="./img/menu/level-cleared.png" alt="">
+            <img id="game-over" src="./img/menu/game-over.png" alt="">
+            <img id="start-button" src="./img/menu/start.png" alt="" onclick="gameStart()">
         </div>
         <div class="option">
             <img id="sound-option" src="./img/menu/mute-sound.png" alt="" onclick="toggleAudio()">
-            <img id="fullscreen-option" src="./img/menu/fullscreen.png" alt=""  onclick="toggleFullscreen()">
+            <img id="fullscreen-option" class="d-none" src="./img/menu/fullscreen.png" alt=""  onclick="toggleFullscreen()">
         </div>
     </div>
     <div id="landscape" class="orientation d-none">

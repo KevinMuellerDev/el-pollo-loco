@@ -53,8 +53,9 @@ canvas {
 
 .start-screen{
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
     position: absolute;
     top: 1px;
     left: 1px;
@@ -65,14 +66,28 @@ canvas {
     width: calc(100% - 2px);
 }
 
-.start-screen img{
+#start-button{
     height: 15%;
     margin-bottom: 10%;
     cursor: pointer;
     transition: scale 75ms ease-in-out;
 }
 
-.start-screen img:hover{
+#game-won{
+    display: none;
+    height: 15%;
+    margin-bottom: 5%;
+    transition: all 75ms ease-in-out;
+}
+
+#game-over{
+    display: none;
+    height: 15%;
+    margin-bottom: 5%;
+    transition: all 75ms ease-in-out; 
+}
+
+#start-button:hover{
     scale: 1.05;;
 }
 

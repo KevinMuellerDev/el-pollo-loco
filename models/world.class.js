@@ -14,6 +14,9 @@ class World {
     enemyHit = false;
     endbossStartedMoving = false;
     gameStart = false;
+    gameEnd = false;
+    gameWon = false;
+    gameID = 0;
     volume = 0;
 
 
@@ -56,6 +59,7 @@ class World {
             this.checkCollisionsMana();
             this.checkCollisionsCoin();
             this.checkThrowObjects();
+            this.gameEnded();
         }, 125);
     }
 
@@ -174,7 +178,7 @@ class World {
         this.dynamicObjects();
         this.ctx.translate(-this.camera_x, 0);
         this.fixedObjects();
-        requestAnimationFrame(() => this.draw());
+        this.gameID = requestAnimationFrame(() => this.draw());
     }
 
 
@@ -196,7 +200,6 @@ class World {
     addToMap(movableObject) {
         if (movableObject.otherDirection)
             this.flipImage(movableObject);
-        //movableObject.drawFrame(this.ctx);
         movableObject.draw(this.ctx);
         if (movableObject.otherDirection)
             this.reverseFlipImage(movableObject);
@@ -294,6 +297,21 @@ class World {
             this.endbossStartedMoving = true;
         }
         this.addTextToMap(this.character);
+    }
+
+    gameEnded(){
+        if (this.gameEnd === true) {
+            clearAllIntervals();
+            cancelAnimationFrame(this.gameID);
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            document.getElementById('startscreen').style.display = 'flex';
+            document.getElementById('fullscreen-option').style.display = 'none';   
+            if (this.gameWon === true) {
+                document.getElementById('game-won').style.display = 'block';  
+            } else{
+                document.getElementById('game-over').style.display = 'block';  
+            }
+        }
     }
 
 

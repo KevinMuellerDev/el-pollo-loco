@@ -9,6 +9,7 @@ class Character extends MovableObject {
     coins = 0;
     attacking = false;
     attackAniCounter = 0;
+    dyingCounter = 0;
     world;
     speed = 5;
     walking_sound = new Audio('./audio/running.mp3');
@@ -81,11 +82,6 @@ class Character extends MovableObject {
     ];
 
     IMAGES_DYING = [
-        './img/Wraith_03/Dying/Wraith_03_Dying_000.png',
-        './img/Wraith_03/Dying/Wraith_03_Dying_001.png',
-        './img/Wraith_03/Dying/Wraith_03_Dying_002.png',
-        './img/Wraith_03/Dying/Wraith_03_Dying_003.png',
-        './img/Wraith_03/Dying/Wraith_03_Dying_004.png',
         './img/Wraith_03/Dying/Wraith_03_Dying_005.png',
         './img/Wraith_03/Dying/Wraith_03_Dying_006.png',
         './img/Wraith_03/Dying/Wraith_03_Dying_007.png',
@@ -172,8 +168,11 @@ class Character extends MovableObject {
      */
     animationInterval(){
         setInterval(() => {
-            if (this.isDead()) {
+            if (this.isDead() && this.dyingCounter != 10) {
                 this.playAnimation(this.IMAGES_DYING)
+                this.dyingCounter++
+                if (this.dyingCounter == 9) 
+                    this.world.gameEnd = true;
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
                 this.hurtSound.play()
