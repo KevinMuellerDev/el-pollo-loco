@@ -79,13 +79,18 @@ class Endboss extends MovableObject {
         setTimeout(() => { this.animate() }, 1000);
     }
 
-
+    /**
+     * animates character in canvas
+     */
     animate() {
         this.intervalMovement();
         this.intervalAnimation();
     }
 
 
+    /**
+     * handles action logic for the character
+     */
     intervalMovement(){
         setInterval(() => {
             if (this.startedMoving && this.dead != true) {
@@ -98,6 +103,9 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * handles the animation logic for the character
+     */
     intervalAnimation(){
         setInterval(() => {
             this.setVolume();
@@ -112,21 +120,9 @@ class Endboss extends MovableObject {
     }
 
 
-    checkEndOfMap() {
-        return this.x < this.world.level.level_end_x;
-    }
-
-
-    checkCharacterPosition() {
-        return this.world.character.x >= 1400;
-    }
-
-
-    isEnraged() {
-        return this.checkCharacterPosition() && this.rageCounter != 15
-    }
-
-
+    /**
+     * handles animation logic for dying endboss
+     */
     dyingBoss() {
         this.y = 220;
         this.width = 270;
@@ -137,6 +133,9 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * handles animation logic for endboss rage mode
+     */
     rageMode() {
         this.playAnimation(this.IMAGES_RAGE);
         this.width = 270;
@@ -148,9 +147,40 @@ class Endboss extends MovableObject {
         }
     }
 
+
+    /**
+     * sets the volume to world.volume
+     */
     setVolume(){
         this.bossHit.volume = this.world.volume;
         this.bossRage.volume = this.world.volume;
+    }
+
+
+    /**
+     * checks x position of endboss compared to level end
+     * @returns true if endboss has moved away from level end, false if not
+     */
+    checkEndOfMap() {
+        return this.x < this.world.level.level_end_x;
+    }
+
+
+    /**
+     * check if character has crossed border to boss
+     * @returns true if character crossed 1400px in x
+     */
+    checkCharacterPosition() {
+        return this.world.character.x >= 1400;
+    }
+
+
+    /**
+     * checks if condition for rage mode have met
+     * @returns true if character has crossed and rage counter is under 15
+     */
+    isEnraged() {
+        return this.checkCharacterPosition() && this.rageCounter != 15
     }
 
 }

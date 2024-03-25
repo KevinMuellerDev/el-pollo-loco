@@ -11,6 +11,9 @@ class MovableObject extends DrawableObject {
     characterHit = false;
 
 
+    /**
+     * applies gravity to an Object
+     */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -21,6 +24,10 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * checks if Object is above ground
+     * @returns true if condition met, false if not
+     */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
@@ -30,11 +37,20 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * checks if object is falling
+     * @returns true if speed y is under 0, false if not
+     */
     isFalling() {
         return this.speedY < 0
     }
 
 
+    /**
+     * checks if this. is colliding with given Object
+     * @param {Object} obj - given Object
+     * @returns true if is colliding, false if not
+     */
     isColliding(obj) {
         return (this.x + this.width - this.offsetX) >= obj.x && this.x <= (obj.x + obj.width - this.offsetX) &&
             (this.y + this.offsetY + this.height) >= obj.y &&
@@ -42,22 +58,23 @@ class MovableObject extends DrawableObject {
 
     }
 
-    isHitEnemy(obj) {
-        return (this.y + this.height - this.offsetY) <= obj.y
-    }
 
-
+    /**
+     * checks if lifepoints are 0
+     * @returns true if lifepoints equal 0, false if not
+     */
     isDead() {
         return this.lifePoints == 0
     }
 
 
+    /**
+     * handles the lifepoints when hit
+     * @param {Object} bossStatusBar - Boss Status Bar
+     */
     isHit(bossStatusBar) {
         if (this instanceof Endboss) {
-            this.lifePoints -= 5;
-            bossStatusBar.setPercentage(this.lifePoints);
-            this.bossHit.playbackRate = 2;
-            this.bossHit.play();
+            this.bossIsHit(bossStatusBar);
         } else if(this instanceof Zombie || this instanceof Zombie2) {
             this.lifePoints -= 1;
         }else{
@@ -71,30 +88,61 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * handles the lifepoints when hit
+     * @param {Object} bossStatusBar - Boss Status Bar Object
+     */
+    bossIsHit(bossStatusBar){
+        this.lifePoints -= 5;
+        bossStatusBar.setPercentage(this.lifePoints);
+        this.bossHit.playbackRate = 2;
+        this.bossHit.play();
+    }
+
+
+    /**
+     * checks is enough time has gone since the last hit
+     * @returns true if enough time passed, false if not
+     */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000; // diff in secs
         return timepassed < 1;
     }
 
+
+    /**
+     * checks is enough time has gone since the last spell
+     * @returns true if enough time passed, false if not
+     */
     hasShot(){
         let timepassed = new Date().getTime() - this.shot;
         timepassed = timepassed / 1000; // diff in secs
         return timepassed < 1;
     }
 
+
+    /**
+     * sets the shot timer
+     */
     isShotTimer(){
         this.shot = new Date().getTime();
     }
 
 
-
+    /**
+     * moves Object to the right
+     */
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
     }
 
 
+    /**
+     * moves object to the left
+     * @param {Object} character - character object to check direction
+     */
     moveLeft(character) {
         this.x -= this.speed;
         if (character === true)
@@ -102,11 +150,18 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * sets speedY to jump
+     */
     jump() {
         this.speedY = 30
     }
 
 
+    /**
+     * animates the Object with given images
+     * @param {Array} images - ImageCache of the Object
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length
         let path = images[i];

@@ -10,6 +10,7 @@ class EndbossStatusBar extends DrawableObject {
         './img/spellpool/spell_7.png',
         './img/spellpool/spell_8.png'
     ];
+    
     height = 25;
     width = 180;
     percentage = 40;
@@ -21,12 +22,22 @@ class EndbossStatusBar extends DrawableObject {
         this.setPercentage(40);
     }
     
+
+    /**
+     * sets percentage of given stat and resolves image Index
+     * @param {number} percentage - number to set percentage
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+
+    /**
+     * resolves the image Index
+     * @returns index of picture to be shown
+     */
     resolveImageIndex() {
         if (this.percentage > 35) {
             return 8;
