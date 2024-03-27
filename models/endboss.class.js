@@ -93,6 +93,8 @@ class Endboss extends MovableObject {
      */
     intervalMovement() {
         setInterval(() => {
+            if (this.lifePoints <= 20) 
+                this.speed = 1.5;
             if (this.startedMoving && this.dead != true) {
                 this.moveLeft();
                 this.startedMoving = true;
