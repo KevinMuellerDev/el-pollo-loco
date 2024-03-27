@@ -4,7 +4,7 @@ class Level {
     backgroundObject;
     mana;
     coin;
-    level_end_x = 1500;
+    level_end_x = 1700;
 
     /**
      * @param {Array} enemies - Objects of enemies

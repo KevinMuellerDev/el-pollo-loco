@@ -49,6 +49,14 @@ function initLevel(world){
             new BackgroundObject('./img/background/layers/7.png', 1440),
             new BackgroundObject('./img/background/layers/8.png', 1440),
             new BackgroundObject('./img/background/layers/9.png', 1440),
+            new BackgroundObject('./img/background/layers/1.png', 2160),
+            new BackgroundObject('./img/background/layers/2.png', 2160),
+            new BackgroundObject('./img/background/layers/3.png', 2160),
+            new BackgroundObject('./img/background/layers/4.png', 2160),
+            new BackgroundObject('./img/background/layers/5.png', 2160),
+            new BackgroundObject('./img/background/layers/6.png', 2160),
+            new BackgroundObject('./img/background/layers/8.png', 2160),
+            new BackgroundObject('./img/background/layers/9.png', 2160)
         ],
         [
             new Mana(world),
