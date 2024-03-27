@@ -313,6 +313,7 @@ class World {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             document.getElementById('startscreen').style.display = 'flex';
             document.getElementById('fullscreen-option').style.display = 'none';   
+            document.getElementById('sound-option').style.display = 'none';
             if (this.gameWon === true) {
                 this.gameWonDisplay();
             } else{

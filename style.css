@@ -121,7 +121,7 @@ canvas {
     ;
 }
 
-#fullscreen-option {
+#fullscreen-option, #sound-option {
     display: none;
 }
 
