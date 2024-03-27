@@ -10,7 +10,6 @@ let startGame = false;
 window.addEventListener("resize", function () {
     let orientationInfo = document.getElementById('landscape');
     if (checkOrientation()) {
-        console.log(window.innerWidth)
         orientationInfo.classList.add('d-none');
     } else if (!checkOrientation() && window.innerWidth < 900) {
         orientationInfo.classList.remove('d-none');
