@@ -47,6 +47,8 @@ class World {
         this.level.enemies.forEach(zombie => {
             zombie.world = this;
         });
+        if (this.volume != savedVolume) 
+            this.volume = savedVolume;
     }
 
 
@@ -314,6 +316,7 @@ class World {
             document.getElementById('startscreen').style.display = 'flex';
             document.getElementById('fullscreen-option').style.display = 'none';   
             document.getElementById('sound-option').style.display = 'none';
+            savedVolume = this.volume;
             if (this.gameWon === true) {
                 this.gameWonDisplay();
             } else{

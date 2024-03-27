@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let bgSound = new Audio('./audio/halloween-bg.mp3');
 let startGame = false;
+let savedVolume = 0;
 
 
 
@@ -10,6 +11,19 @@ let startGame = false;
  * eventlistener to tell the user to switch to landscape mode
  */
 window.addEventListener("resize", function () {
+    let orientationInfo = document.getElementById('landscape');
+    if (checkOrientation()) {
+        orientationInfo.classList.add('d-none');
+    } else if (!checkOrientation() && window.innerWidth < 900) {
+        orientationInfo.classList.remove('d-none');
+    }
+}, false);
+
+
+/**
+ * eventlistener to tell the user to switch to landscape mode
+ */
+window.addEventListener("load", function () {
     let orientationInfo = document.getElementById('landscape');
     if (checkOrientation()) {
         orientationInfo.classList.add('d-none');
@@ -104,7 +118,7 @@ function clearAllIntervals() {
  * checks if sound is muted or not and toggles the opposite
  */
 function toggleAudio() {
-    if (world.volume == 0) {
+    if (world.volume == 0 ) {
         bgSound.play();
         world.volume = 1;
         bgSound.volume = 0.6;
