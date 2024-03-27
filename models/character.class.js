@@ -159,6 +159,10 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;
             if (this.isReadyToJump())
                 this.jump();
+            if (this.coins === 7){
+                this.manaCost = 0;
+                this.coins = '∞ SP';
+            }
         }, 1000 / 60)
     }
 
