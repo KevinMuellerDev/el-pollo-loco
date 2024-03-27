@@ -49,6 +49,7 @@ canvas {
 
 .game {
     position: relative;
+    overflow: hidden;
 }
 
 .start-screen {
@@ -145,7 +146,7 @@ canvas {
 
 #mobile-control {
     position: absolute;
-    display: flex;
+    display: none;
     width: 100%;
     justify-content: space-between;
     bottom: 4px;
@@ -182,5 +183,9 @@ canvas {
 
     h1 {
         display: none;
+    }
+
+    #mobile-control{
+        display: flex;
     }
 }
