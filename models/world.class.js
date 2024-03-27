@@ -314,13 +314,31 @@ class World {
             document.getElementById('startscreen').style.display = 'flex';
             document.getElementById('fullscreen-option').style.display = 'none';   
             if (this.gameWon === true) {
-                document.getElementById('game-won').style.display = 'block';  
-                this.GAME_WON.play();
+                this.gameWonDisplay();
             } else{
-                document.getElementById('game-over').style.display = 'block';  
-                this.GAME_OVER.play();
+                this.gameOverDisplay();
             }
         }
+    }
+
+
+    /**
+     * displays the information when game is won
+     */
+    gameWonDisplay(){
+        document.getElementById('game-won').style.display = 'block';  
+        this.GAME_WON.volume = this.volume;
+        this.GAME_WON.play();
+    }
+
+
+    /**
+     * displays information when died
+     */
+    gameOverDisplay(){
+        document.getElementById('game-over').style.display = 'block';  
+        this.GAME_OVER.volume = this.volume;
+        this.GAME_OVER.play();
     }
 
 

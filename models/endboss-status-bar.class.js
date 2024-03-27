@@ -1,14 +1,14 @@
 class EndbossStatusBar extends DrawableObject {
     IMAGES = [
-        './img/spellpool/spell_0.png',
-        './img/spellpool/spell_1.png',
-        './img/spellpool/spell_2.png',
-        './img/spellpool/spell_3.png',
-        './img/spellpool/spell_4.png',
-        './img/spellpool/spell_5.png',
-        './img/spellpool/spell_6.png',
-        './img/spellpool/spell_7.png',
-        './img/spellpool/spell_8.png'
+        './img/boss/lifepool/1.png',
+        './img/boss/lifepool/2.png',
+        './img/boss/lifepool/3.png',
+        './img/boss/lifepool/4.png',
+        './img/boss/lifepool/5.png',
+        './img/boss/lifepool/6.png',
+        './img/boss/lifepool/7.png',
+        './img/boss/lifepool/8.png',
+        './img/boss/lifepool/9.png',
     ];
     
     height = 25;
