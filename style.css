@@ -13,6 +13,11 @@ body {
     margin: 0;
 }
 
+
+.body-info h1{
+    margin: 42px 0 0 0;
+}
+
 h1 {
     font-size: 60px;
     font-weight: 100;
@@ -156,6 +161,23 @@ canvas {
 #mobile-control img {
     height: 32px;
     padding: 0px 16px;
+}
+
+.impressum{
+    padding-left: 32px;
+}
+
+a{
+    color: lightcyan;
+}
+
+a:hover{
+    color: rgb(186, 253, 253);
+}
+
+.data-scroll{
+    overflow-y: scroll;
+    padding-left: 32px;
 }
 
 @media only screen and (max-width: 720px) {

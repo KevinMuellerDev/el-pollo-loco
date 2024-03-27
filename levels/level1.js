@@ -20,6 +20,18 @@ function initLevel(world){
             new Bat(),
             new Bat(),
             new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
+            new Bat(),
             new Bat()
         ],
         [
@@ -64,6 +76,8 @@ function initLevel(world){
             new Mana(world),
         ],
         [
+            new Coin(world),
+            new Coin(world),
             new Coin(world),
             new Coin(world),
             new Coin(world),

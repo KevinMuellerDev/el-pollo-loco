@@ -4,7 +4,7 @@ class Bat extends MovableObject {
 
     constructor() {
         super().loadImage('./img/background/layers/newbat.png');
-        this.x = Math.random() * 1400;
+        this.x = Math.random() * 1600;
         this.y = Math.random() * 150;
         this.animate();
     }
