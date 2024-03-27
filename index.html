@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +28,7 @@
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
 </head>
+
 <body onload="init()">
     <h1>HALLOWEEN MADNESS</h1>
     <div class="game">
@@ -38,15 +40,24 @@
             <img id="start-button" src="./img/menu/start.png" alt="" onclick="gameStart()">
         </div>
         <div class="option">
+            <img id="info-option" src="./img/menu/info.png" alt="" onclick="showInfo()">
             <img id="sound-option" src="./img/menu/mute-sound.png" alt="" onclick="toggleAudio()">
-            <img id="fullscreen-option" class="d-none" src="./img/menu/fullscreen.png" alt=""  onclick="toggleFullscreen()">
+            <img id="fullscreen-option" class="d-none" src="./img/menu/fullscreen.png" alt=""
+                onclick="toggleFullscreen()">
         </div>
     </div>
-    
+    <div id="info">
+        <img src="./img/menu/close.png" alt="" onclick="closeInfo()">
+        <h3>INFORMATION</h3>
+        <p>LAUFEN = PFEILTASTEN LINKS UND RECHTS</p>
+        <p>ZAUBER SCHIEßEN = D TASTE</p>
+        <p>SPRINGEN = SPACE TASTE</p>    
+    </div>
     <div id="landscape" class="orientation d-none">
         <img src="./img/menu/rotate-phone.jpg" alt="">
     </div>
 
 
 </body>
+
 </html>

@@ -34,7 +34,7 @@ function gameStart() {
     document.getElementById('startscreen').style.display = 'none';
     document.getElementById('fullscreen-option').style.display = 'block';
     document.getElementById('game-won').style.display = 'none';
-    document.getElementById('game-over').style.display = 'none';  
+    document.getElementById('game-over').style.display = 'none';
     world = new World(canvas, keyboard);
 }
 
@@ -57,7 +57,7 @@ function toggleAudio() {
     }
     if (world.volume == 0) {
         world.volume = 1;
-        bgSound.volume= 0.6;
+        bgSound.volume = 0.6;
         document.getElementById('sound-option').src = './img/menu/play-sound.png'
     } else {
         world.volume = 0;
@@ -74,6 +74,24 @@ function toggleFullscreen() {
     else {
         canvas.mozRequestFullScreen();
     }
+}
+
+function showInfo() {
+    document.getElementById('info').style.display = 'flex';
+    setTimeout(slideIn, 125);
+}
+
+function closeInfo() {
+    document.getElementById('info').style.right = 'calc(-50% - 68px)';
+    setTimeout(displayNone, 125);
+}
+
+function displayNone() {
+    document.getElementById('info').style.display = 'none'
+}
+
+function slideIn() {
+    document.getElementById('info').style.right = 'calc(25% - 34px)';
 }
 
 
